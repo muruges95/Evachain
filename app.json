@@ -1,5 +1,9 @@
 {
   "expo": {
+"splash": {
+  "image": "./assets/splash.png",
+  "resizeMode": "cover"
+},
     "name": "Evachain",
     "version": "1.0.0",
     "slug": "Evachain",
