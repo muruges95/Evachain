@@ -5,6 +5,7 @@ Ensure that you have `node` and `npm` installed.
 
 ## Installation
 ```
+npm install -g exp
 npm install
 npm start
 ```
