@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Evachain",
+    "version": "1.0.0",
+    "slug": "Evachain",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.menlomuppets.evachain"
+    },
+    "android": {
+      "package": "com.menlomuppets.evachain",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBD8mH6L2zK13zMUgnd7rU_jbhB8U7ArXg"
+        }
+      }
+    }
+  }
+}
