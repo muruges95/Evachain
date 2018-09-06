@@ -1,4 +1,4 @@
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 
 import DashboardScreen from "./screens/DashboardScreen";
 import ListMapScreen from "./screens/ListMapScreen";
@@ -12,3 +12,4 @@ export default createBottomTabNavigator(
     Profile: ProfileScreen
   }
 );
+
