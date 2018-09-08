@@ -1,0 +1,19 @@
+{
+  "civilians": {
+    "keys": [
+      "name",
+      "address",
+      "pets",
+      "num_family"
+    ],
+    "dbName" : "civilians"
+  },
+  "shelters": {
+    "keys": [
+      "name",
+      "lat",
+      "long"
+    ],
+    "dbName": "shelters"
+  }
+}
