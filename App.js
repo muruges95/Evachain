@@ -9,16 +9,25 @@ import DashboardScreen from "./screens/DashboardScreen";
 import ListMapScreen from "./screens/ListMapScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import OnboardingNameScreen from "./screens/OnboardingNameScreen";
+import { OnboardingNameScreen, OnboardingDetailScreen, OnboardingHouseholdScreen, OnboardingImageScreen } from "./screens/OnboardingScreen";
 
 export const Onboarding = createStackNavigator(
     {
         Welcome: WelcomeScreen,
         OnboardingName: OnboardingNameScreen,
+        OnboardingDetail: OnboardingDetailScreen,
+        OnboardingHousehold: OnboardingHouseholdScreen,
+        OnboardingImage: OnboardingImageScreen
     },
     {
+        headerMode: 'screen',
         navigationOptions: {
-            header: null,
+            headerStyle: {
+                borderBottomWidth: 0,
+                shadowColor: 'transparent',
+                marginLeft: 10
+            },
+            headerTintColor: '#919191',
         }
     }
 );

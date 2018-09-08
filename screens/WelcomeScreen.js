@@ -39,7 +39,7 @@ const welcomeStyle = StyleSheet.create({
     Image: {
         width: 60,
         resizeMode: 'contain',
-        marginTop: 60
+        marginTop: 10
     },
     Button: {
         backgroundColor: '#FF5A72',
