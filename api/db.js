@@ -1,4 +1,5 @@
 var json = require("../keys.json");
+var databases = require("../schema.json");
 
 const allDB = json.URL + json.TestDB;
 export const retrieveData = (dbName) => {
