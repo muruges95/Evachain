@@ -28,7 +28,7 @@ class MapScreen extends React.Component {
 			<MapView
 				style={styles.map}
 				initialRegion={{
-					latitude: 37.3318456, 
+					latitude: 37.3318456,
 					longitude: -122.0296002,
 					latitudeDelta: 0.0922,
 					longitudeDelta: 0.0421
@@ -89,9 +89,9 @@ class ListScreen extends React.Component {
 		
 		return (
 			<View style={{ margin: 15 }}>
-				<Text style={{ fontSize: 24, marginBottom: 15, fontWeight: "bold", textAlign: "center" }}>Nearest Shelters</Text>
+				<Text style={{ fontSize: 24, marginTop: 25, marginBottom: 15, fontWeight: "bold", textAlign: "center" }}>Nearest Shelters</Text>
 				<FlatList
-					style={{ marginBottom: 98 }}
+					style={{ marginBottom: 140 }}
 					data={data}
 					ItemSeparatorComponent={ListSeparator}
 					renderItem={({item}) => (
@@ -120,13 +120,6 @@ class ListScreen extends React.Component {
 		);
 	}
 }
-
-createMaterialTopTabNavigator(
-	{
-		Map: MapScreen,
-		List: ListScreen
-	}
-);
 
 const CustomTabBar = ({ navigation }) => {
 	const { routes } = navigation.state;
