@@ -16,16 +16,27 @@ const CustomTabBar = ({ navigation }) => {
 	return (
 		<SafeAreaView style={styles.tabContainer}>
 			<View style={{ borderColor: "#ff5a72",flexDirection: 'row', justifyContent: 'center', borderWidth: 2, borderRadius: 10, width: 120 }}>
-				{routes.map(route => (
+				{routes.map(route => {
 					
-				<TouchableOpacity
-					onPress={() => navigation.navigate(route.routeName)}
-					style={styles.tab}
-					key={route.routeName}>
-					<Text style={{ lineHeight: 20, color: "#ff5a72" }}>{route.routeName}</Text>
-				</TouchableOpacity>
-			
-				))}
+					if (route.key === "Map" && navigation.state.index === 0) {
+						var isActivated = true;
+						var tabStyle = styles.tabLeftActivated;
+					} else if (route.key === "List" && navigation.state.index === 1) {
+						var isActivated = true;
+						var tabStyle = styles.tabRightActivated;
+					} else {
+						var isActivated = false;
+						var tabStyle = styles.tab;
+					}
+					return (
+						<TouchableOpacity
+							onPress={() => navigation.navigate(route.routeName)}
+							style={tabStyle}
+							key={route.routeName}>
+							<Text style={(isActivated) ? styles.tabTextActivated : styles.tabText}>{route.routeName}</Text>
+						</TouchableOpacity>
+					);
+				})}
 			</View>
 	  	</SafeAreaView>
 	);
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
 	tabContainer: {
 		height: 30,
 		position: 'absolute',
-		top: 0,
+		top: 10,
 		left: 0,
 		right: 0,
 		bottom: 0,
@@ -89,7 +100,33 @@ const styles = StyleSheet.create({
 		width: 60,
 		alignItems: 'center',
 		justifyContent: 'center'
-  	},
+	}, 
+	tabText: {
+		lineHeight: 20,
+		color: "#ff5a72"
+	},
+	tabLeftActivated: {
+		flex: 0,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: "#ff5a72",
+		borderBottomLeftRadius: 10,
+		borderTopLeftRadius: 10
+	},
+	tabRightActivated: {
+		flex: 0,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: "#ff5a72",
+		borderBottomRightRadius: 10,
+		borderTopRightRadius: 10
+	},  
+	tabTextActivated: {
+		lineHeight: 20,
+		color: "white"
+	},
   	container: {
 		position: 'absolute',
 		top: 0,
