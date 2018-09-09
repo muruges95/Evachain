@@ -36,6 +36,7 @@ export default StyleSheet.create({
         overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
+        paddingTop: 5, //Probably this or slider
         paddingVertical: 1 // for custom animation
     },
     paginationContainer: {

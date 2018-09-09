@@ -1,10 +1,8 @@
 import React from 'react';
 import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import InfoCarousel from "../components/InfoCarousel"
-import {retrieveData, postData, toJson} from "../api/db.js";
-import { Avatar, Button } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import { MapView } from "expo";
-import {colors} from "../styles/index.style";
 
 export default class DashboardScreen extends React.Component {
     constructor(props) {
@@ -105,7 +103,7 @@ const styles = {
         height: 140,
     },
     headerStyle: {
-        backgroundColor:"white",
+        marginTop: "5%",
         flexDirection: 'row',
         marginLeft: "5%",
         marginRight: "5%",
