@@ -19,3 +19,5 @@ yarn-error.log*
 package-lock.json
 .idea
 keys.json
+
+.DS_Store
