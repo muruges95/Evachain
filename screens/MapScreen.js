@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapView } from "expo";
+import { MapView, Location, Permissions } from "expo";
 import { Text, View, FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
 import logo from '../assets/logo.png';
 
@@ -12,20 +12,39 @@ const destination1 = {latitude: 37.4400225, longitude: -122.1603};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues';
 
 class MapScreen extends React.Component {
+    state = {
+        latitude: 37.3318456,
+        longitude: -122.0296002,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+    };
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            console.log("NOT GRANTED")
+        } else {
+            let location = await Location.getCurrentPositionAsync({});
+            this.setState({longitude: location.coords.longitude, latitude: location.coords.latitude});
+            console.log(JSON.stringify(location));
+        }
+    }
+    componentDidMount() {
+        this._getLocationAsync();
+    }
     render() {
       return (
           <MapView
               style={styles.map}
               initialRegion={{
-                  latitude: 37.3318456,
-                  longitude: -122.0296002,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                    latitudeDelta: this.state.latitudeDelta,
+                    longitudeDelta: this.state.longitudeDelta
               }}>
                 <MapView.Marker
                     coordinate={{
-                    latitude: 37.3318456,
-                    longitude: -122.0296002,
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421
                     }}
