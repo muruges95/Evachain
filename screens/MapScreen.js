@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapView } from "expo";
-import { Text, View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
+import logo from '../assets/logo.png';
 
 // documentation link: https://github.com/bramus/react-native-maps-directions
 import MapViewDirections from 'react-native-maps-directions';
@@ -21,7 +22,22 @@ class MapScreen extends React.Component {
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421
               }}>
-              
+                <MapView.Marker
+                    coordinate={{
+                    latitude: 37.3318456,
+                    longitude: -122.0296002,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
+                    }}
+                    image={logo}
+                    style={{width:20, height:20}}
+                >
+                    <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
+                    <View>
+                        <Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
+                    </View>
+                    </MapView.Callout>
+                </MapView.Marker>   
           </MapView>
       )
   }
