@@ -1,62 +1,141 @@
 import React from 'react';
-import { MapView } from "expo";
-import { Text, View } from "react-native";
-import { createMaterialTopTabNavigator } from "react-navigation";
+import { Text, View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import MapScreen from './MapScreen';
+import ListScreen from './ListScreen';
 
-// documentation link: https://github.com/bramus/react-native-maps-directions
-import MapViewDirections from 'react-native-maps-directions';
- const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-const origin1 = {latitude: 37.4512637, longitude: -122.18994862};
-const destination1 = {latitude: 37.4400225, longitude: -122.1603};
-const GOOGLE_MAPS_APIKEY = 'AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues';
 
-class MapScreen extends React.Component {
+import {
+	createNavigator,
+	createNavigationContainer,
+	SafeAreaView,
+	TabRouter,
+  } from 'react-navigation';
 
-  	render() {
-		return (
-			<MapView
-				style={{
-					flex: 1
-				}}
-				initialRegion={{
-					latitude: 37.3318456, 
-					longitude: -122.0296002,
-					latitudeDelta: 0.0922,
-					longitudeDelta: 0.0421
-				}}>
-				<MapViewDirections
-					origin={origin}
-					destination={destination}
-					apikey={GOOGLE_MAPS_APIKEY}
-					strokeWidth={3}
-					strokeColor="red"
-				/>
-				<MapViewDirections
-					origin={origin1}
-					destination={destination1}
-					apikey={GOOGLE_MAPS_APIKEY}
-					strokeWidth={3}
-					strokeColor="green"
-				/>
-			</MapView>
-		)
-	}
-}
-
-class ListScreen extends React.Component {
-	render() {
-		return (
-			<View>
-				<Text>Listview here.</Text>
+const CustomTabBar = ({ navigation }) => {
+	const { routes } = navigation.state;
+	return (
+		<SafeAreaView style={styles.tabContainer}>
+			<View style={{ borderColor: "#ff5a72",flexDirection: 'row', justifyContent: 'center', borderWidth: 2, borderRadius: 10, width: 120 }}>
+				{routes.map(route => {
+					
+					if (route.key === "Map" && navigation.state.index === 0) {
+						var isActivated = true;
+						var tabStyle = styles.tabLeftActivated;
+					} else if (route.key === "List" && navigation.state.index === 1) {
+						var isActivated = true;
+						var tabStyle = styles.tabRightActivated;
+					} else {
+						var isActivated = false;
+						var tabStyle = styles.tab;
+					}
+					return (
+						<TouchableOpacity
+							onPress={() => navigation.navigate(route.routeName)}
+							style={tabStyle}
+							key={route.routeName}>
+							<Text style={(isActivated) ? styles.tabTextActivated : styles.tabText}>{route.routeName}</Text>
+						</TouchableOpacity>
+					);
+				})}
 			</View>
-		)
-	}
-}
+	  	</SafeAreaView>
+	);
+};
 
-export default createMaterialTopTabNavigator(
-	{
-		Map: MapScreen,
-		List: ListScreen
+const CustomTabView = ({ descriptors, navigation }) => {
+	const { routes, index } = navigation.state;
+	const descriptor = descriptors[routes[index].key];
+	const ActiveScreen = descriptor.getComponent();
+	if (index === 1) {
+		return (
+			<SafeAreaView forceInset={{ top: 'always' }}>
+				<ActiveScreen navigation={descriptor.navigation} />
+				<CustomTabBar navigation={navigation} />	
+			</SafeAreaView>
+		);
+	} else {
+		return (
+			<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+				<ActiveScreen navigation={descriptor.navigation} />
+				<CustomTabBar navigation={navigation} />	
+			</SafeAreaView> 
+	  	);
 	}
+};
+
+const CustomTabRouter = TabRouter(
+	{
+    	Map: {
+     		screen: MapScreen,
+      		path: 'Map',
+    	},
+		List: {
+			screen: ListScreen,
+			path: 'List',
+		}
+  	},
+  	{
+    	// Change this to start on a different tab
+    	initialRouteName: 'Map',
+  	}
 );
+
+const CustomTabs = createNavigationContainer(
+  	createNavigator(CustomTabView, CustomTabRouter, {})
+);
+
+const styles = StyleSheet.create({
+	tabContainer: {
+		height: 30,
+		position: 'absolute',
+		top: 10,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		justifyContent: 'center',
+		flexDirection: 'row'
+  	},
+	tab: {
+		flex: 0,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'center'
+	}, 
+	tabText: {
+		lineHeight: 20,
+		color: "#ff5a72"
+	},
+	tabLeftActivated: {
+		flex: 0,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: "#ff5a72",
+		borderBottomLeftRadius: 10,
+		borderTopLeftRadius: 10
+	},
+	tabRightActivated: {
+		flex: 0,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: "#ff5a72",
+		borderBottomRightRadius: 10,
+		borderTopRightRadius: 10
+	},  
+	tabTextActivated: {
+		lineHeight: 20,
+		color: "white"
+	},
+  	container: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+  	},
+});
+
+export default CustomTabs;
