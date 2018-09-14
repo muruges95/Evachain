@@ -4,9 +4,10 @@ import {
     View,
     Image,
     StyleSheet,
-    Dimensions,
-    Button
+    Dimensions
 } from "react-native";
+
+import { Button } from 'react-native-elements';
 
 const welcomeStyle = StyleSheet.create({
     mainContainer: {
@@ -25,7 +26,7 @@ const welcomeStyle = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: 22,
-        marginTop: -50,
+        marginTop: -60,
         color: '#484848',
         fontFamily: 'lato-black'
     },
@@ -39,13 +40,12 @@ const welcomeStyle = StyleSheet.create({
     Image: {
         width: 60,
         resizeMode: 'contain',
-        marginTop: 10
     },
-    Button: {
-        backgroundColor: '#FF5A72',
-        width: 300,
-        height: 45,
-        borderColor: 'transparent',
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 120
 
     }
 })
@@ -59,10 +59,20 @@ export default class WelcomeScreen extends React.Component {
                     <Text style={welcomeStyle.mainText}>Welcome to Evachain</Text>
                     <Text style={welcomeStyle.smallText}>Evacuation made simple.</Text>
                 </View>
-                <View>
+                <View style={welcomeStyle.buttonContainer}>
                     <Button
-                        color='#FF5A72'
+                        color='#FFF'
                         title="Get Started"
+                        textStyle={{
+                            fontFamily: 'lato-bold',
+                            fontSize: 15
+                        }}
+                        buttonStyle={{
+                            backgroundColor: '#FF5A72',
+                            width: 250,
+                            height: 50,
+                            borderRadius: 60,
+                        }}
                         onPress={() => this.props.navigation.navigate('OnboardingName')}
                     />
                 </View>
