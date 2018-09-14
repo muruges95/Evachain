@@ -34,9 +34,9 @@ class MapScreen extends React.Component {
     componentDidMount() {
         // this._getLocationAsync();
         this._getCoords();
-        setInterval(() => {
-          this.getDB()
-        },1000)
+        //setInterval(() => {
+        //   this.getDB()
+        // },1000)
     }
 
     _getCoords = () => {

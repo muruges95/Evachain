@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FormLabel, FormInput, FormValidationMessage, Button, Icon } from 'react-native-elements';
 import { Permissions, ImagePicker, Camera } from 'expo';
+import { postData } from "../api/db";
 
 const onboardingStyle = StyleSheet.create({
     mainContainer: {
@@ -48,6 +49,20 @@ const onboardingStyle = StyleSheet.create({
 })
 
 export class OnboardingNameScreen extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            firstName: "",
+            lastName: ""
+        };
+    }
+    handleSave = () => {
+        //this.props.save(this.state);
+        this.props.navigation.navigate('OnboardingDetail', {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName
+        });
+    }
     render() {
         return (
             <View style={onboardingStyle.mainContainer}>
@@ -59,11 +74,15 @@ export class OnboardingNameScreen extends React.Component {
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         FIRST NAME</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({firstName: e}); }}
+                    />
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         LAST NAME</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({lastName: e}); }}
+                    />
                 </View>
                 <View style={onboardingStyle.buttonContainer}>
                     <Icon
@@ -72,7 +91,9 @@ export class OnboardingNameScreen extends React.Component {
                         name="chevron-right"
                         color="white"
                         containerStyle={{ backgroundColor: '#FF5A72', height:50, width:50, marginTop:30 }}
-                        onPress={() => this.props.navigation.navigate('OnboardingDetail')}
+                        onPress={() => {
+                            this.handleSave();
+                        }}
                     />
                 </View>
             </View>
@@ -81,6 +102,27 @@ export class OnboardingNameScreen extends React.Component {
 }
 
 export class OnboardingDetailScreen extends React.Component {
+    constructor(props){
+        super(props);
+        const { navigation } = this.props;
+
+        this.state = {
+            firstName: navigation.getParam('firstName', ''),
+            lastName: navigation.getParam('lastName', ''),
+            address: "",
+            phone: ""
+        };
+        console.log(this.state);
+    }
+    handleSave = () => {
+        //this.props.save(this.state);
+        this.props.navigation.navigate('OnboardingHousehold', {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            address: this.state.address,
+            phone: this.state.phone
+        });
+    }
     render() {
         return (
             <View style={onboardingStyle.mainContainer}>
@@ -92,12 +134,16 @@ export class OnboardingDetailScreen extends React.Component {
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         HOUSE ADDRESS</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({address: e}); }}
+                    />
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         MOBILE PHONE
                     </FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({phone: e}); }}
+                    />
                 </View>
                 <View style={onboardingStyle.buttonContainer}>
                     <Icon
@@ -106,7 +152,7 @@ export class OnboardingDetailScreen extends React.Component {
                         name="chevron-right"
                         color="white"
                         containerStyle={{ backgroundColor: '#FF5A72', height:50, width:50, marginTop:30 }}
-                        onPress={() => this.props.navigation.navigate('OnboardingHousehold')}
+                        onPress={this.handleSave}
                     />
                 </View>
             </View>
@@ -115,6 +161,31 @@ export class OnboardingDetailScreen extends React.Component {
 }
 
 export class OnboardingHouseholdScreen extends React.Component {
+    constructor(props){
+        super(props);
+        const { navigation } = this.props;
+
+        this.state = {
+            firstName: navigation.getParam('firstName', ''),
+            lastName: navigation.getParam('lastName', ''),
+            address: navigation.getParam('address', ''),
+            phone: navigation.getParam('phone', ''),
+            pets: "",
+            familyMembers: ""
+        };
+        console.log(this.state);
+    }
+    handleSave = () => {
+        //this.props.save(this.state);
+        this.props.navigation.navigate('OnboardingImage', {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            address: this.state.address,
+            phone: this.state.phone,
+            pets: this.state.pets,
+            familyMembers: this.state.familyMembers
+        });
+    }
     render() {
         return (
             <View style={onboardingStyle.mainContainer}>
@@ -126,12 +197,16 @@ export class OnboardingHouseholdScreen extends React.Component {
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         DO YOU HAVE PETS?</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({pets: e}); }}
+                    />
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         NO. OF FAMILY MEMBERS
                     </FormLabel>
-                    <FormInput />
+                    <FormInput
+                        onChangeText={e=>{ this.setState({familyMembers: e}); }}
+                    />
                 </View>
                 <View style={onboardingStyle.buttonContainer}>
                     <Icon
@@ -140,7 +215,7 @@ export class OnboardingHouseholdScreen extends React.Component {
                         name="chevron-right"
                         color="white"
                         containerStyle={{ backgroundColor: '#FF5A72', height:50, width:50, marginTop:30 }}
-                        onPress={() => this.props.navigation.navigate('OnboardingImage')}
+                        onPress={this.handleSave}
                     />
                 </View>
             </View>
@@ -149,6 +224,23 @@ export class OnboardingHouseholdScreen extends React.Component {
 }
 
 export class OnboardingImageScreen extends React.Component {
+    constructor(props){
+        super(props);
+        const { navigation } = this.props;
+
+        this.state = {
+            firstName: navigation.getParam('firstName', ''),
+            lastName: navigation.getParam('lastName', ''),
+            address: navigation.getParam('address', ''),
+            phone: navigation.getParam('phone', ''),
+            pets: navigation.getParam('pets', ''),
+            familyMembers: navigation.getParam('familyMembers', '')
+        };
+        console.log(this.state);
+    }
+    handleSave = () => {
+        postData(this.state, 'testdb1')
+    }
     render() {
         return(
             <View style={onboardingStyle.mainContainer}>
@@ -157,6 +249,15 @@ export class OnboardingImageScreen extends React.Component {
                     <Text style={onboardingStyle.largeText}>Add your profile picture.</Text>
                 </View>
                 <ProfileImagePicker />
+                <View>
+                    <Text
+                        style={onboardingStyle.skipText}
+                        onPress={() => {
+                            this.handleSave();
+                            this.props.navigation.navigate('LocationPermission')
+                        }}
+                    >Skip</Text>
+                </View>
             </View>
         )
     }
@@ -215,10 +316,7 @@ export class ProfileImagePicker extends React.Component {
                     onPress={this._cameraImage}
                 />
 
-                <Text
-                    style={onboardingStyle.skipText}
-                    onPress={() => this.props.navigation.navigate('LocationPermission')}
-                    >Skip</Text>
+
             </View>
         );
     }

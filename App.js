@@ -53,7 +53,7 @@ export const RootStack = createStackNavigator(
         Main: MainApp
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'Onboarding',
         navigationOptions: {
             header: null,
         }
