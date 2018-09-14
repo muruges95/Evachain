@@ -9,7 +9,13 @@ import DashboardScreen from "./screens/DashboardScreen";
 import ListMapScreen from "./screens/ListMapScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import { OnboardingNameScreen, OnboardingDetailScreen, OnboardingHouseholdScreen, OnboardingImageScreen } from "./screens/OnboardingScreen";
+import {
+    OnboardingNameScreen,
+    OnboardingDetailScreen,
+    OnboardingHouseholdScreen,
+    OnboardingImageScreen,
+    LocationPermissionScreen  } from "./screens/OnboardingScreen";
+
 
 export const Onboarding = createStackNavigator(
     {
@@ -17,7 +23,8 @@ export const Onboarding = createStackNavigator(
         OnboardingName: OnboardingNameScreen,
         OnboardingDetail: OnboardingDetailScreen,
         OnboardingHousehold: OnboardingHouseholdScreen,
-        OnboardingImage: OnboardingImageScreen
+        OnboardingImage: OnboardingImageScreen,
+        LocationPermission: LocationPermissionScreen
     },
     {
         headerMode: 'screen',
