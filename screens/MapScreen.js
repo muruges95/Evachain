@@ -1,7 +1,9 @@
 import React from 'react';
 import { MapView, Location, Permissions } from "expo";
 import { Text, View, FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
-import logo from '../assets/logo.png';
+import house1 from '../assets/house1.png';
+import house2 from '../assets/house2.png';
+import { retrieveData, postData, toJson } from '../api/db.js';
 
 // documentation link: https://github.com/bramus/react-native-maps-directions
 import MapViewDirections from 'react-native-maps-directions';
@@ -16,7 +18,8 @@ class MapScreen extends React.Component {
         latitude: 37.3318456,
         longitude: -122.0296002,
         latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        longitudeDelta: 0.0421,
+        logo: house1
     };
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -29,18 +32,57 @@ class MapScreen extends React.Component {
         }
     }
     componentDidMount() {
-        this._getLocationAsync();
+        // this._getLocationAsync();
+        this._getCoords();
+        setInterval(() => {
+          this.getDB()
+        },1000)
+    }
+
+    _getCoords = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({longitude: position.coords.longitude, latitude: position.coords.latitude});
+                // var initialPosition = JSON.stringify(position.coords);
+                // this.setState({position: initialPosition});
+                // let tempCoords = {
+                //     latitude: Number(position.coords.latitude),
+                //     longitude: Number(position.coords.longitude)
+                // }
+                // this._map.animateToCoordinate(tempCoords, 1);
+              }, function (error) { alert(error) },
+         );
+    };
+    getDB = () => [
+      retrieveData('testdb1').then( (data) => {
+        console.log(toJson(data,['name','age','height']));
+      })
+      .catch(err=> {
+        console.log('gg');
+      })
+    ]
+    onRegionChange = (region) => {
+        this.setState({
+            latitude: region.latitude,
+            longitude: region.longitude,
+            latitudeDelta: region.latitudeDelta,
+            longitudeDelta: region.longitudeDelta
+        })
     }
     render() {
       return (
+        <View style={styles.container}>
           <MapView
               style={styles.map}
+              ref = {component => this._map = component}
               initialRegion={{
                     latitude: this.state.latitude,
                     longitude: this.state.longitude,
                     latitudeDelta: this.state.latitudeDelta,
                     longitudeDelta: this.state.longitudeDelta
-              }}>
+              }}
+              onRegionChange={this.onRegionChange}
+              >
                 <MapView.Marker
                     coordinate={{
                     latitude: this.state.latitude,
@@ -48,7 +90,7 @@ class MapScreen extends React.Component {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421
                     }}
-                    image={logo}
+                    image={this.state.logo}
                     style={{width:20, height:20}}
                 >
                     <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
@@ -58,18 +100,26 @@ class MapScreen extends React.Component {
                     </MapView.Callout>
                 </MapView.Marker>   
           </MapView>
+          <View>
+            <TouchableOpacity onPress={this.getDB}>
+                <Text>longitude: {this.state.longitude}</Text>
+                <Text>latitude: {this.state.latitude}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       )
   }
 }
 
 const styles = StyleSheet.create({
-    map: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-  	},
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
 })
 
 export default MapScreen;
