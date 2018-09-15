@@ -56,7 +56,9 @@ export default class WelcomeScreen extends React.Component {
             .then(e=>{
                 console.log("great2",JSON.parse(e));
                 this.setState(JSON.parse(e));
-                this.props.navigation.navigate('Main', this.state);
+                if(this.state.firstName) {
+                    this.props.navigation.navigate('Main', this.state);
+                }
             })
             .catch(e=>console.log("fuck2",e));
     }
