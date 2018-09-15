@@ -4,7 +4,7 @@ import {
     View,
     Image,
     StyleSheet,
-    Dimensions
+    Dimensions, AsyncStorage
 } from "react-native";
 
 import { Button } from 'react-native-elements';
@@ -51,6 +51,15 @@ const welcomeStyle = StyleSheet.create({
 })
 
 export default class WelcomeScreen extends React.Component {
+    componentDidMount() {
+        AsyncStorage.getItem('state')
+            .then(e=>{
+                console.log("great2",JSON.parse(e));
+                this.setState(JSON.parse(e));
+                this.props.navigation.navigate('Main', this.state);
+            })
+            .catch(e=>console.log("fuck2",e));
+    }
     render() {
         return (
             <View style={welcomeStyle.mainContainer}>

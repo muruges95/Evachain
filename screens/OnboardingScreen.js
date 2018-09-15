@@ -4,11 +4,13 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Image
+    Image,
+    ImageStore,
 } from "react-native";
 import { FormLabel, FormInput, FormValidationMessage, Button, Icon } from 'react-native-elements';
 import { Permissions, ImagePicker, Camera } from 'expo';
 import { postData } from "../api/db";
+import { AsyncStorage } from "react-native"
 
 const onboardingStyle = StyleSheet.create({
     mainContainer: {
@@ -234,12 +236,32 @@ export class OnboardingImageScreen extends React.Component {
             address: navigation.getParam('address', ''),
             phone: navigation.getParam('phone', ''),
             pets: navigation.getParam('pets', ''),
-            familyMembers: navigation.getParam('familyMembers', '')
+            familyMembers: navigation.getParam('familyMembers', ''),
+            image: null,
+            imageURI: null
         };
         console.log(this.state);
     }
     handleSave = () => {
-        postData(this.state, 'testdb1')
+        console.log(this.state);
+        this._storeData();
+        // postData(this.state, 'testdb1')
+    }
+    _storeData = async () => {
+        AsyncStorage.setItem("state", JSON.stringify(this.state))
+            .then(success=>{
+                console.log("success",success);
+                this.props.navigation.navigate('Main', this.state)
+            })
+            .catch(fail=>console.log("fail",fail));
+    }
+    saveImage = (uri) => {
+        console.log('URI', uri);
+        ImageStore.getBase64ForTag(uri, (data) => {
+            // data == base64 encoded image
+            this.setState({image: data});
+        }, e => console.warn("getBase64ForTag: ", e))
+        console.log(this.state);
     }
     render() {
         return(
@@ -248,13 +270,15 @@ export class OnboardingImageScreen extends React.Component {
                     <Text style={onboardingStyle.smallText}>Step 4 of 4</Text>
                     <Text style={onboardingStyle.largeText}>Add your profile picture.</Text>
                 </View>
-                <ProfileImagePicker />
+                <ProfileImagePicker
+                    saveImage={this.saveImage}
+                />
                 <View>
                     <Text
                         style={onboardingStyle.skipText}
                         onPress={() => {
                             this.handleSave();
-                            this.props.navigation.navigate('LocationPermission')
+
                         }}
                     >Skip</Text>
                 </View>
@@ -274,14 +298,23 @@ export class LocationPermissionScreen extends React.Component {
 }
 
 export class ProfileImagePicker extends React.Component {
-    state = {
-        hasImagePermission: null,
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasImagePermission: null,
+            image: null
+        };
     }
 
     render() {
         let{ image } = this.state;
         return(
             <View style={{ flex: 1, alignItems: 'center', justifyContent:'center' }}>
+                {image ?
+                    <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                    :
+                    null
+                }
                 <Button
                     title="Choose Photo"
                     color="#FFF"
@@ -320,7 +353,9 @@ export class ProfileImagePicker extends React.Component {
             </View>
         );
     }
-
+    saveImage = (uri) => {
+        this.props.saveImage(uri);
+    }
     _pickImage = async() => {
         const permissions = 'Permissions.CAMERA_ROLL';
         let { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -329,9 +364,12 @@ export class ProfileImagePicker extends React.Component {
                 mediaTypes: 'Images',
             }).catch(error => console.log(permissions, { error }));
             console.log(status);
-
+            if (!result.cancelled) {
+                this.setState({ imageURI: result.uri });
+                this.saveImage(result.uri);
             }
         }
+    }
 
     _cameraImage = async() => {
         const permissions = 'Permissions.CAMERA';
@@ -340,8 +378,8 @@ export class ProfileImagePicker extends React.Component {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: 'Images',
             }).catch(error => console.log(permissions, { error }));
-
-            }
+            console.log(result);
         }
+    }
 }
 

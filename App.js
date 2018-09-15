@@ -4,6 +4,7 @@ import {
     createBottomTabNavigator,
     createStackNavigator
 } from 'react-navigation';
+import { AsyncStorage } from "react-native"
 
 import DashboardScreen from "./screens/DashboardScreen";
 import ListMapScreen from "./screens/ListMapScreen";
@@ -40,11 +41,11 @@ export const Onboarding = createStackNavigator(
 );
 
 export const MainApp = createBottomTabNavigator(
-  {
-    Dashboard: DashboardScreen,
-    ListMap: ListMapScreen,
-    Profile: ProfileScreen
-  }
+    {
+        Dashboard: DashboardScreen,
+        ListMap: ListMapScreen,
+        Profile: ProfileScreen
+    }
 );
 
 export const RootStack = createStackNavigator(
@@ -61,8 +62,11 @@ export const RootStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
-    state = {
-        fontLoaded: false
+    constructor(props){
+    super(props);
+        this.state = {
+            fontLoaded: false
+        }
     }
     async componentWillMount() {
         await Font.loadAsync({

@@ -3,6 +3,7 @@ import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import InfoCarousel from "../components/InfoCarousel"
 import { Avatar } from 'react-native-elements';
 import { MapView } from "expo";
+import { AsyncStorage } from "react-native"
 
 export default class DashboardScreen extends React.Component {
     constructor(props) {
@@ -12,8 +13,26 @@ export default class DashboardScreen extends React.Component {
             fireState: "pink",
         };
     }
+    componentDidMount(){
+        console.log("lmao");
+        this._retrieveData();
+    }
     getColor = () => {
         return this.state.fireState
+    }
+    _retrieveData = () => {
+
+        // const value = await AsyncStorage.getItem('firstName');
+        // if (value !== null) {
+        //     // We have data!!
+        //     console.log(value);
+        // }
+        AsyncStorage.getItem('state')
+            .then(e=>{
+                console.log("great2",JSON.parse(e));
+                this.setState(JSON.parse(e))
+            })
+            .catch(e=>console.log("fuck2",e))
     }
     render() {
         const {fireState} = this.state.fireState
@@ -32,11 +51,11 @@ export default class DashboardScreen extends React.Component {
                                     <Avatar
                                         small
                                         rounded
-                                        source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg"}}
+                                        source={{uri: this.state.image}}
                                         onPress={() => console.log("Works!")}
                                         activeOpacity={0.7}
                                     />
-                                    <Text style={styles.headerText}>Hello Bro</Text>
+                                    <Text style={styles.headerText}>Hello {this.state.lastName}</Text>
 
                                 </View>
                                 <Text style={[{backgroundColor:this.getColor()}, styles.fireCard]}>
