@@ -250,15 +250,14 @@ export class OnboardingImageScreen extends React.Component {
     _storeData = async () => {
         AsyncStorage.setItem("state", JSON.stringify(this.state))
             .then(success=>{
-                console.log("success",success);
+                console.log("Onboarding: Write Data Success!",success);
                 this.props.navigation.navigate('Main', this.state)
             })
-            .catch(fail=>console.log("fail",fail));
+            .catch(fail=>console.log("Onboarding: Write Data Fail!",fail));
     }
     saveImage = (uri) => {
         console.log('URI', uri);
         ImageStore.getBase64ForTag(uri, (data) => {
-            // data == base64 encoded image
             this.setState({image: data});
         }, e => console.warn("getBase64ForTag: ", e))
         console.log(this.state);

@@ -14,28 +14,21 @@ export default class DashboardScreen extends React.Component {
         };
     }
     componentDidMount(){
-        console.log("lmao");
         this._retrieveData();
     }
     getColor = () => {
         return this.state.fireState
     }
     _retrieveData = () => {
-
-        // const value = await AsyncStorage.getItem('firstName');
-        // if (value !== null) {
-        //     // We have data!!
-        //     console.log(value);
-        // }
         AsyncStorage.getItem('state')
             .then(e=>{
-                console.log("great2",JSON.parse(e));
+                console.log("Dashboard: Retrieved Data Success!");
                 this.setState(JSON.parse(e))
             })
-            .catch(e=>console.log("fuck2",e))
+            .catch(e=>console.log("Dashboard: Retrieved Data Fail!",e))
     }
     change = () => {
-        console.log("lmao");
+        console.log("Fire State changed");
         this.setState({fireState: this.state.fireState=='pink'? 'green':'pink'});
     }
     render() {

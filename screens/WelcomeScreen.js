@@ -54,13 +54,13 @@ export default class WelcomeScreen extends React.Component {
     componentDidMount() {
         AsyncStorage.getItem('state')
             .then(e=>{
-                console.log("great2",JSON.parse(e));
+                console.log("Welcome Screen: Existing data", JSON.parse(e).firstName!=null);
                 this.setState(JSON.parse(e));
                 if(this.state.firstName) {
                     this.props.navigation.navigate('Main', this.state);
                 }
             })
-            .catch(e=>console.log("fuck2",e));
+            .catch(e=>console.log("Welcome Screen: No existing data", e));
     }
     render() {
         return (
