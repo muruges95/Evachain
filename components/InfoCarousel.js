@@ -4,7 +4,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from '../styles/SliderEntry.style';
 import SliderEntry from './SliderEntry';
 import styles, { colors } from '../styles/index.style';
-import { dashboardDanger } from '../static/dashboardEntries';
+import { dashboardDanger, dashboardSafe } from '../static/dashboardEntries';
 
 const firstItem = 1;
 
@@ -15,6 +15,7 @@ export default class example extends Component {
         this.state = {
             slider1ActiveSlide: firstItem
         };
+        console.log(this.props.emergencyState)
     }
 
 
@@ -36,7 +37,7 @@ export default class example extends Component {
             <View style={styles.exampleContainer}>
                 <Carousel
                     ref={c => this._slider1Ref = c}
-                    data={dashboardDanger}
+                    data={this.props.emergencyState? dashboardDanger : dashboardSafe}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
@@ -55,7 +56,7 @@ export default class example extends Component {
                     onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
                 />
                 <Pagination
-                    dotsLength={dashboardDanger.length}
+                    dotsLength={this.props.emergencyState? dashboardDanger.length : dashboardSafe.length}
                     activeDotIndex={slider1ActiveSlide}
                     containerStyle={styles.paginationContainer}
                     dotColor={'rgba(255, 255, 255, 0.92)'}

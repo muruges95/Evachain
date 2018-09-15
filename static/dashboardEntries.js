@@ -15,3 +15,20 @@ export const dashboardDanger = [
         illustration: 'https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/1028x675/format/jpg/quality/85/http%3A%2F%2Fo.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2F2252700cf9bbd67f7f8e88330104bd2b%2F0%2FRTS1SYW2.jpeg',
     },
 ];
+export const dashboardSafe = [
+    {
+        title: 'Prepare for emergencies',
+        subtitle: 'How to evacuate in case of oncoming wildfires',
+        illustration: 'https://metrorelief.org/wp-content/uploads/2012/10/volunteer-stocking-shelves.jpg'
+    },
+    {
+        title: 'Plan for the unexpected',
+        subtitle: 'Disaster may strike anytime',
+        illustration: 'https://www.phillyaptrentals.com/wp-content/uploads/2015/09/Checklist.jpg',
+    },
+    {
+        title: 'Volcanic Eruptions',
+        subtitle: 'What to do when volcanoes erupt',
+        illustration: 'https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/1028x675/format/jpg/quality/85/http%3A%2F%2Fo.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2F2252700cf9bbd67f7f8e88330104bd2b%2F0%2FRTS1SYW2.jpeg',
+    },
+];

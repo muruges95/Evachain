@@ -34,6 +34,10 @@ export default class DashboardScreen extends React.Component {
             })
             .catch(e=>console.log("fuck2",e))
     }
+    change = () => {
+        console.log("lmao");
+        this.setState({fireState: this.state.fireState=='pink'? 'green':'pink'});
+    }
     render() {
         const {fireState} = this.state.fireState
 
@@ -58,7 +62,10 @@ export default class DashboardScreen extends React.Component {
                                     <Text style={styles.headerText}>Hello {this.state.lastName}</Text>
 
                                 </View>
-                                <Text style={[{backgroundColor:this.getColor()}, styles.fireCard]}>
+                                <Text
+                                    style={[{backgroundColor:this.getColor()}, styles.fireCard]}
+                                    onPress={this.change}
+                                >
                                     {this.state.fireState == 'pink' ?
                                         "There is a wildfire nearby! 🔥"
                                         :
@@ -67,6 +74,7 @@ export default class DashboardScreen extends React.Component {
                                 </Text>
                             </View>
                         </View>
+
                         <View style={styles.exampleContainer}>
                             <Text style={styles.shelterText}>Your shelter</Text>
                             <View style={styles.mapViewStyle}>
@@ -93,7 +101,9 @@ export default class DashboardScreen extends React.Component {
                         </View>
                         <View style={styles.exampleContainer}>
                             <Text style={styles.shelterText}>Important information</Text>
-                            <InfoCarousel />
+                            <InfoCarousel
+                                emergencyState={this.state.fireState == 'pink'}
+                            />
                         </View>
                     </ScrollView>
                 </View>
