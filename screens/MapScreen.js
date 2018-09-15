@@ -34,9 +34,9 @@ class MapScreen extends React.Component {
     componentDidMount() {
         // this._getLocationAsync();
         this._getCoords();
-        //setInterval(() => {
-        //   this.getDB()
-        // },1000)
+        setInterval(() => {
+          this.getDB()
+        },1000)
     }
 
     _getCoords = () => {
@@ -54,8 +54,8 @@ class MapScreen extends React.Component {
          );
     };
     getDB = () => [
-      retrieveData('testdb1').then( (data) => {
-        console.log(toJson(data,['name','age','height']));
+      retrieveData('testdb2').then( (data) => {
+        console.log(toJson(data,['firstName','address','safe']));
       })
       .catch(err=> {
         console.log('gg');

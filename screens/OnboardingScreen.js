@@ -238,14 +238,15 @@ export class OnboardingImageScreen extends React.Component {
             pets: navigation.getParam('pets', ''),
             familyMembers: navigation.getParam('familyMembers', ''),
             image: null,
-            imageURI: null
+            imageURI: null,
+            safe: "unverified"
         };
         console.log(this.state);
     }
     handleSave = () => {
         console.log(this.state);
         this._storeData();
-        // postData(this.state, 'testdb1')
+        postData(this.state, 'testdb2');
     }
     _storeData = async () => {
         AsyncStorage.setItem("state", JSON.stringify(this.state))

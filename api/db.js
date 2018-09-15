@@ -24,7 +24,7 @@ export const retrieveData = (dbName) => {
 }
 
 export const postData = (data, database) => {
-    var url = allDB;
+    var url = json.URL + "/" + database;
     console.log("Fetching");
     return fetch(url, {
         method: 'POST',
