@@ -239,7 +239,7 @@ export class OnboardingImageScreen extends React.Component {
             familyMembers: navigation.getParam('familyMembers', ''),
             image: null,
             imageURI: null,
-            safe: "unverified"
+            status: "unverified"
         };
         console.log(this.state);
     }

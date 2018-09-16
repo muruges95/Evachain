@@ -64,3 +64,52 @@ export const toJson = (response, keys) => {
         return null;
     }
 }
+
+export const retrieveKey = (key, database) => {
+    var url = json.URL + "/" + database + "/_find";
+    var queryBody = {
+        "selector": key
+    }
+    console.log("k");
+    return fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+            'Authorization': json.Auth,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(queryBody)
+    })
+    .then(e=>{
+        return e.json();
+    })
+    .catch(e=>{
+        console.log("Fail retrieve data", e);
+    });
+}
+
+export const updateRow = (id, data, database) => {
+    var url = json.URL + "/" + database + "/" + id;
+    console.log("Patching");
+    return fetch(url, {
+        method: 'PUT',
+        headers: new Headers({
+            'Authorization': json.Auth,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (response.status === 201) {
+                return response
+            } else {
+                console.log(response.status);
+                throw new Error('Something went wrong on api server!');
+                return null
+            }
+        })
+        .then(response => {
+            // ...
+        }).catch(error => {
+            console.error(error);
+        });
+}
