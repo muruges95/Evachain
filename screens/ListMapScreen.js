@@ -1,15 +1,13 @@
 import React from 'react';
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
-import MapScreen from './MapScreen';
-import ListScreen from './ListScreen';
-
-
 import {
 	createNavigator,
 	createNavigationContainer,
 	SafeAreaView,
 	TabRouter,
   } from 'react-navigation';
+import MapScreenContainer from '../containers/MapScreenContainer';
+import ListScreenContainer from '../containers/ListScreenContainer';
 
 const CustomTabBar = ({ navigation }) => {
 	const { routes } = navigation.state;
@@ -66,11 +64,11 @@ const CustomTabView = ({ descriptors, navigation }) => {
 const CustomTabRouter = TabRouter(
 	{
     	Map: {
-     		screen: MapScreen,
+     		screen: MapScreenContainer,
       		path: 'Map',
     	},
 		List: {
-			screen: ListScreen,
+			screen: ListScreenContainer,
 			path: 'List',
 		}
   	},

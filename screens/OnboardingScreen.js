@@ -12,6 +12,9 @@ import { Permissions, ImagePicker, Camera } from 'expo';
 import { postData } from "../api/db";
 import { AsyncStorage } from "react-native"
 
+import Geocode from "react-geocode";
+// Geocode.setApiKey("AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues");
+
 const onboardingStyle = StyleSheet.create({
     mainContainer: {
         width: '100%',
@@ -229,32 +232,45 @@ export class OnboardingImageScreen extends React.Component {
     constructor(props){
         super(props);
         const { navigation } = this.props;
+        const address = navigation.getParam('address', '')
 
         this.state = {
             firstName: navigation.getParam('firstName', ''),
             lastName: navigation.getParam('lastName', ''),
-            address: navigation.getParam('address', ''),
+            address: address,
             phone: navigation.getParam('phone', ''),
             pets: navigation.getParam('pets', ''),
             familyMembers: navigation.getParam('familyMembers', ''),
             image: null,
             imageURI: null,
-            safe: "unverified"
+            status: "unverified"
         };
         console.log(this.state);
     }
     handleSave = () => {
-        console.log(this.state);
-        this._storeData();
-        postData(this.state, 'testdb2');
+        Geocode.fromAddress(this.state.address).then(
+            response => {
+                // console.log(response);
+                // console.log(this.state.address);
+                const { lat, lng } = response.results[0].geometry.location;
+                // console.log(lat, lng);
+                let userInfo = { ...this.state, lat: lat, lng: lng};
+                // console.log(userInfo);
+                this._storeData(userInfo);
+                postData(userInfo, 'testdb2');
+            },
+            error => {
+                console.error(error);
+            }
+        );
     }
-    _storeData = async () => {
-        AsyncStorage.setItem("state", JSON.stringify(this.state))
+    _storeData = async (userInfo) => {
+        AsyncStorage.setItem("state", JSON.stringify(userInfo))
             .then(success=>{
                 console.log("Onboarding: Write Data Success!",success);
-                this.props.navigation.navigate('Main', this.state)
+                this.props.navigation.navigate('Main', userInfo)
             })
-            .catch(fail=>console.log("Onboarding: Write Data Fail!",fail));
+            .catch(fail =>console.log("Onboarding: Write Data Fail!",fail));
     }
     saveImage = (uri) => {
         console.log('URI', uri);

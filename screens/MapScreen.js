@@ -3,15 +3,47 @@ import { MapView, Location, Permissions } from "expo";
 import { Text, View, FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
 import house1 from '../assets/house1.png';
 import house2 from '../assets/house2.png';
+import house3 from '../assets/logo.png';
 import { retrieveData, postData, toJson } from '../api/db.js';
 
-// documentation link: https://github.com/bramus/react-native-maps-directions
-import MapViewDirections from 'react-native-maps-directions';
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-const origin1 = {latitude: 37.4512637, longitude: -122.18994862};
-const destination1 = {latitude: 37.4400225, longitude: -122.1603};
+const LatLongInfo = props => (
+	<View>
+		<TouchableOpacity >
+				<Text>longitude: {props.longitude}</Text>
+				<Text>latitude: {props.latitude}</Text>
+		</TouchableOpacity>
+	</View>
+);
+
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues';
+
+const HomeIcon = props => {
+	if (props.status === "verified") {
+		var image = house1;
+	} else if (props.status === "need assistance") {
+		var image = house2;
+	} else {
+		var image = house3;
+	}
+	return (
+		<MapView.Marker
+			coordinate={{
+			latitude: props.lat,
+			longitude: props.lng,
+			latitudeDelta: 0.0922,
+			longitudeDelta: 0.0421
+			}}
+			image={image}
+			style={{width:20, height:20}}
+		>
+			<MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
+			<View>
+					<Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
+			</View>
+			</MapView.Callout>
+		</MapView.Marker>   
+	);
+};
 
 class MapScreen extends React.Component {
     state = {
@@ -19,29 +51,36 @@ class MapScreen extends React.Component {
         longitude: -122.0296002,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
-        logo: house1
+				logo: house1,
+				view: "authority",
+				homes: [],
+				shelters: []
     };
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
             console.log("NOT GRANTED")
         } else {
+            // console.log()
             let location = await Location.getCurrentPositionAsync({});
             this.setState({longitude: location.coords.longitude, latitude: location.coords.latitude});
-            console.log(JSON.stringify(location));
+            console.log("Current Location is: " + JSON.stringify(location));
         }
     }
     componentDidMount() {
+			
         // this._getLocationAsync();
-        this._getCoords();
-        setInterval(() => {
-          this.getDB()
-        },1000)
+        // this._getCoords();
+        // setInterval(() => {
+        //   this.getDB()
+				// },1000)
+				this.props.getHomes();
     }
 
     _getCoords = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                console.log(position);
                 this.setState({longitude: position.coords.longitude, latitude: position.coords.latitude});
                 // var initialPosition = JSON.stringify(position.coords);
                 // this.setState({position: initialPosition});
@@ -53,14 +92,6 @@ class MapScreen extends React.Component {
               }, function (error) { alert(error) },
          );
     };
-    getDB = () => [
-      retrieveData('testdb2').then( (data) => {
-        console.log(toJson(data,['firstName','address','safe']));
-      })
-      .catch(err=> {
-        console.log('gg');
-      })
-    ]
     onRegionChange = (region) => {
         this.setState({
             latitude: region.latitude,
@@ -70,44 +101,65 @@ class MapScreen extends React.Component {
         })
     }
     render() {
+			var initialRegion={
+				latitude: this.state.latitude,
+				longitude: this.state.longitude,
+				latitudeDelta: this.state.latitudeDelta,
+				longitudeDelta: this.state.longitudeDelta
+			}
+
+			if (this.state.view === "authority") {
+				if (this.props.homes === undefined || this.props.homes === []) {
+					var homesIcons = null;
+				} else {
+					var homesIcons = this.props.homes.map((person, i) => {
+						let home = person.doc;
+						return (
+							<HomeIcon lat={home.lat} lng={home.lng} key={i} status={home.status} />
+						);
+					})
+				}
+				return (
+					<View style={styles.container}>
+						<MapView
+								style={styles.map}
+								ref = {component => this._map = component}
+								initialRegion={initialRegion}
+								onRegionChange={this.onRegionChange}
+								>
+									{homesIcons}
+						</MapView>
+						<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
+        	</View>
+				);
+			} else if (this.state.view === "volunteer") {
+				return (
+					<View style={styles.container}>
+						<MapView
+								style={styles.map}
+								ref = {component => this._map = component}
+								initialRegion={initialRegion}
+								onRegionChange={this.onRegionChange}
+								>
+									
+							</MapView>
+							<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
+						</View>
+				);
+			}
       return (
         <View style={styles.container}>
-          <MapView
-              style={styles.map}
-              ref = {component => this._map = component}
-              initialRegion={{
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: this.state.latitudeDelta,
-                    longitudeDelta: this.state.longitudeDelta
-              }}
-              onRegionChange={this.onRegionChange}
-              >
-                <MapView.Marker
-                    coordinate={{
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                    }}
-                    image={this.state.logo}
-                    style={{width:20, height:20}}
-                >
-                    <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
-                    <View>
-                        <Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
-                    </View>
-                    </MapView.Callout>
-                </MapView.Marker>   
-          </MapView>
-          <View>
-            <TouchableOpacity onPress={this.getDB}>
-                <Text>longitude: {this.state.longitude}</Text>
-                <Text>latitude: {this.state.latitude}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )
+					<MapView
+							style={styles.map}
+							ref = {component => this._map = component}
+							initialRegion={initialRegion}
+							onRegionChange={this.onRegionChange}
+							>
+								
+						</MapView>
+						<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
+					</View>
+      );
   }
 }
 
