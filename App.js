@@ -5,6 +5,10 @@ import {
     createStackNavigator
 } from 'react-navigation';
 import { AsyncStorage } from "react-native"
+import store from './store';
+import { Provider } from 'react-redux';
+import { Store, Dispatch } from 'redux';
+
 
 import DashboardScreen from "./screens/DashboardScreen";
 import ListMapScreen from "./screens/ListMapScreen";
@@ -80,6 +84,10 @@ export default class App extends React.Component {
         if (!this.state.fontLoaded) {
             return <AppLoading />;
         }
-        return <RootStack />;
+        return (
+            <Provider store={store}>
+                <RootStack />
+            </Provider>
+        );
     }
 }
