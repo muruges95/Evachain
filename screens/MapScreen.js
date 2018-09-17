@@ -5,17 +5,10 @@ import house1 from '../assets/house1.png';
 import house2 from '../assets/house2.png';
 import house3 from '../assets/logo.png';
 import { retrieveData, postData, toJson } from '../api/db.js';
+import Locater from '../components/MapScreenComponents/Locater';
+import RouteRenderer from '../components/MapScreenComponents/RouteRenderer';
 
-const LatLongInfo = props => (
-	<View>
-		<TouchableOpacity >
-				<Text>longitude: {props.longitude}</Text>
-				<Text>latitude: {props.latitude}</Text>
-		</TouchableOpacity>
-	</View>
-);
-
-const GOOGLE_MAPS_APIKEY = 'AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyCj71zkYDMHtC2wjICDyUYluXOz54eKzmw';
 
 const HomeIcon = props => {
 	if (props.status === "verified") {
@@ -45,17 +38,61 @@ const HomeIcon = props => {
 	);
 };
 
+// Example of a route list
+const routes = [
+  {
+    origin: {
+      latitude: 37.451264,
+      longitude: -122.187760
+    },
+    destination: {
+      latitude: 37.439990,
+      longitude: -122.158129
+    },
+    strokeColor: "red"
+  },
+  {
+    origin: {
+      latitude: 37.451264,
+      longitude: -122.187760
+    },
+    destination: {
+      latitude: 37.488306,
+      longitude: -122.217657
+    },
+    strokeColor: "green"
+  },  
+  {
+    origin: {
+      latitude: 37.451264,
+      longitude: -122.187760
+    },
+    destination: {
+      latitude: 37.452911,
+      longitude: -122.183045
+    },
+    strokeColor: "pink"
+  }
+]
+
 class MapScreen extends React.Component {
-    state = {
+
+  constructor(props) {
+    super(props);
+    this.state = {
         latitude: 37.3318456,
         longitude: -122.0296002,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
-				logo: house1,
-				view: "authority",
-				homes: [],
-				shelters: []
-    };
+        logo: house1,
+        view: "authority",
+        homes: [],
+        shelters: []
+    };  
+    this._getLocationAsync = this._getLocationAsync.bind(this);
+  }
+
+
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
@@ -64,12 +101,17 @@ class MapScreen extends React.Component {
             // console.log()
             let location = await Location.getCurrentPositionAsync({});
             this.setState({longitude: location.coords.longitude, latitude: location.coords.latitude});
-            console.log("Current Location is: " + JSON.stringify(location));
+            this._map.animateToCoordinate({
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: this.state.latitudeDelta,
+              longitudeDelta: this.state.longitudeDelta
+            }, 1300)
         }
     }
     componentDidMount() {
 			
-        // this._getLocationAsync();
+        this._getLocationAsync();
         // this._getCoords();
         // setInterval(() => {
         //   this.getDB()
@@ -77,29 +119,6 @@ class MapScreen extends React.Component {
 				this.props.getHomes();
     }
 
-    _getCoords = () => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log(position);
-                this.setState({longitude: position.coords.longitude, latitude: position.coords.latitude});
-                // var initialPosition = JSON.stringify(position.coords);
-                // this.setState({position: initialPosition});
-                // let tempCoords = {
-                //     latitude: Number(position.coords.latitude),
-                //     longitude: Number(position.coords.longitude)
-                // }
-                // this._map.animateToCoordinate(tempCoords, 1);
-              }, function (error) { alert(error) },
-         );
-    };
-    onRegionChange = (region) => {
-        this.setState({
-            latitude: region.latitude,
-            longitude: region.longitude,
-            latitudeDelta: region.latitudeDelta,
-            longitudeDelta: region.longitudeDelta
-        })
-    }
     render() {
 			var initialRegion={
 				latitude: this.state.latitude,
@@ -122,14 +141,14 @@ class MapScreen extends React.Component {
 				return (
 					<View style={styles.container}>
 						<MapView
-								style={styles.map}
-								ref = {component => this._map = component}
-								initialRegion={initialRegion}
-								onRegionChange={this.onRegionChange}
-								>
-									{homesIcons}
+							style={styles.map}
+							ref = {component => this._map = component}
+							initialRegion={initialRegion}
+						>
+							{homesIcons}
+              <RouteRenderer routes={routes} />
 						</MapView>
-						<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
+						<Locater onPress={this._getLocationAsync}/>
         	</View>
 				);
 			} else if (this.state.view === "volunteer") {
@@ -139,26 +158,22 @@ class MapScreen extends React.Component {
 								style={styles.map}
 								ref = {component => this._map = component}
 								initialRegion={initialRegion}
-								onRegionChange={this.onRegionChange}
 								>
 									
 							</MapView>
-							<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
 						</View>
 				);
 			}
       return (
         <View style={styles.container}>
 					<MapView
-							style={styles.map}
-							ref = {component => this._map = component}
-							initialRegion={initialRegion}
-							onRegionChange={this.onRegionChange}
-							>
-								
-						</MapView>
-						<LatLongInfo latitude={this.state.latitude} longitude={this.state.longitude} />
-					</View>
+						style={styles.map}
+						ref = {component => this._map = component}
+						initialRegion={initialRegion}
+					>
+					</MapView>
+					<Locater onPress={this._getLocationAsync}/>
+				</View>
       );
   }
 }
@@ -167,7 +182,6 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
