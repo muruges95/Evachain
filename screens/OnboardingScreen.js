@@ -14,6 +14,7 @@ import { postData } from "../api/db";
 import { AsyncStorage } from "react-native";
 import json from "../keys.json";
 import Geocode from "react-geocode";
+import { Dropdown } from 'react-native-material-dropdown';
 Geocode.setApiKey(json.geocodeAPI);
 
 const onboardingStyle = StyleSheet.create({
@@ -73,7 +74,7 @@ export class OnboardingNameScreen extends React.Component {
         return (
             <View style={onboardingStyle.mainContainer}>
                 <View style={onboardingStyle.headerContainer}>
-                    <Text style={onboardingStyle.smallText}>Step 1 of 4</Text>
+                    <Text style={onboardingStyle.smallText}>Step 1 of 5</Text>
                     <Text style={onboardingStyle.largeText}> What's your name?</Text>
                 </View>
                 <View style={onboardingStyle.formContainer}>
@@ -133,7 +134,7 @@ export class OnboardingDetailScreen extends React.Component {
         return (
             <View style={onboardingStyle.mainContainer}>
                 <View style={onboardingStyle.headerContainer}>
-                    <Text style={onboardingStyle.smallText}>Step 2 of 4</Text>
+                    <Text style={onboardingStyle.smallText}>Step 2 of 5</Text>
                     <Text style={onboardingStyle.largeText}>Your address & number?</Text>
                 </View>
                 <View style={onboardingStyle.formContainer}>
@@ -176,27 +177,31 @@ export class OnboardingHouseholdScreen extends React.Component {
             lastName: navigation.getParam('lastName', ''),
             address: navigation.getParam('address', ''),
             phone: navigation.getParam('phone', ''),
-            pets: "",
-            familyMembers: ""
+            pets: true,
+            familyMembers: 0,
+            mobilityIssues: true,
+
         };
         console.log(this.state);
     }
     handleSave = () => {
         //this.props.save(this.state);
-        this.props.navigation.navigate('OnboardingImage', {
+        this.props.navigation.navigate('OnboardingVolunteer', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             address: this.state.address,
             phone: this.state.phone,
             pets: this.state.pets,
-            familyMembers: this.state.familyMembers
+            familyMembers: this.state.familyMembers,
+            mobilityIssues: this.mobilityIssues,
+
         });
     }
     render() {
         return (
             <View style={onboardingStyle.mainContainer}>
                 <View style={onboardingStyle.headerContainer}>
-                    <Text style={onboardingStyle.smallText}>Step 3 of 4</Text>
+                    <Text style={onboardingStyle.smallText}>Step 3 of 5</Text>
                     <Text style={onboardingStyle.largeText}>And, some household details.</Text>
                 </View>
                 <View style={onboardingStyle.formContainer}>
@@ -206,9 +211,12 @@ export class OnboardingHouseholdScreen extends React.Component {
                     <Picker
                         selectedValue={this.state.pets}
                         style={{ height: 40, width: "96%", marginLeft: "4%" }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({pets: itemValue})}>
-                        <Picker.Item label="Yes" value="true" />
-                        <Picker.Item label="No" value="false" />
+                        onValueChange={(itemValue, itemIndex) => {
+                            console.log(itemValue, itemIndex);
+                            this.setState({pets: itemValue});
+                        }}>
+                        <Picker.Item label="Yes" value={true} />
+                        <Picker.Item label="No" value={false} />
                     </Picker>
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
@@ -218,18 +226,28 @@ export class OnboardingHouseholdScreen extends React.Component {
                         selectedValue={this.state.familyMembers}
                         style={{ height: 40, width: "96%", marginLeft: "4%" }}
                         onValueChange={(itemValue, itemIndex) => this.setState({familyMembers: itemValue})}>
-                        <Picker.Item label="0" value="0" />
-                        <Picker.Item label="1" value="1" />
-                        <Picker.Item label="2" value="2" />
-                        <Picker.Item label="3" value="3" />
-                        <Picker.Item label="4" value="4" />
-                        <Picker.Item label="5" value="5" />
-                        <Picker.Item label="6" value="6" />
-                        <Picker.Item label="7" value="7" />
-                        <Picker.Item label="8" value="8 " />
-                        <Picker.Item label="9" value="9" />
-                        <Picker.Item label="10" value="10" />
-                        <Picker.Item label="11" value="11" />
+                        <Picker.Item label="0" value={0} />
+                        <Picker.Item label="1" value={1} />
+                        <Picker.Item label="2" value={2} />
+                        <Picker.Item label="3" value={3} />
+                        <Picker.Item label="4" value={4} />
+                        <Picker.Item label="5" value={5} />
+                        <Picker.Item label="6" value={6} />
+                        <Picker.Item label="7" value={7} />
+                        <Picker.Item label="8" value={8} />
+                        <Picker.Item label="9" value={9} />
+                        <Picker.Item label="10" value={10} />
+                    </Picker>
+                    <FormLabel
+                        labelStyle={{color: '#484848'}}>
+                        DO YOU HAVE MOBILITY ISSUES?
+                    </FormLabel>
+                    <Picker
+                        selectedValue={this.state.mobilityIssues}
+                        style={{ height: 40, width: "96%", marginLeft: "4%" }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({mobilityIssues: itemValue})}>
+                        <Picker.Item label="Yes" value={true} />
+                        <Picker.Item label="No" value={false} />
                     </Picker>
                 </View>
                 <View style={onboardingStyle.buttonContainer}>
@@ -246,7 +264,86 @@ export class OnboardingHouseholdScreen extends React.Component {
         )
     }
 }
+export class OnboardingVolunteer extends React.Component {
+    constructor(props){
+        super(props);
+        const { navigation } = this.props;
 
+        this.state = {
+            firstName: navigation.getParam('firstName', ''),
+            lastName: navigation.getParam('lastName', ''),
+            address: navigation.getParam('address', ''),
+            phone: navigation.getParam('phone', ''),
+            pets: navigation.getParam('pets', ''),
+            familyMembers: navigation.getParam('familyMembers', ''),
+            mobilityIssues: navigation.getParam('mobilityIssues', '')
+        };
+        console.log(this.state);
+    }
+    handleSave = () => {
+        //this.props.save(this.state);
+        this.props.navigation.navigate('OnboardingImage', {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            address: this.state.address,
+            phone: this.state.phone,
+            pets: this.state.pets,
+            familyMembers: this.state.familyMembers,
+            mobilityIssues: this.mobilityIssues,
+            volunteer: true
+        });
+    }
+    render() {
+        return (
+            <View style={onboardingStyle.mainContainer}>
+                <View style={onboardingStyle.headerContainer}>
+                    <Text style={onboardingStyle.smallText}>Step 4 of 5</Text>
+                    <Text style={onboardingStyle.largeText}>Sign up to be a volunteer.</Text>
+                </View>
+                <View style={{alignItems:"center",paddingLeft: 30,
+                    paddingTop: 25,paddingRight: 30,
+                }}>
+                    <Text>
+                        The resources of firemen are stretched thin during a massive fire. When folks like yourself are
+                        unable to respond or have mobility issues, our boys in yellow go door to door to verify our civilians are safe.
+                    </Text>
+                </View>
+                <View style={{
+                    alignItems:"center",
+                    paddingLeft: 30,
+                    paddingRight: 30,
+                    paddingTop: 25,
+                }}>
+                    <Text>
+                        Sign up to alleviate their pain. Lend them a helping hand!
+                    </Text>
+                </View>
+                <View style={onboardingStyle.formContainer}>
+                    <FormLabel
+                        labelStyle={{color: '#484848'}}>
+                        DO YOU WANT TO BE A VOLUNTEER?</FormLabel>
+                    <Picker
+                        selectedValue={this.state.pets}
+                        style={{ height: 40, width: "96%", marginLeft: "4%" }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({pets: itemValue})}>
+                        <Picker.Item label="Yes" value={true} />
+                        <Picker.Item label="No" value={false} />
+                    </Picker>
+                </View>
+                <View style={onboardingStyle.buttonContainer}>
+                    <Icon
+                        component={TouchableOpacity}
+                        raised
+                        name="chevron-right"
+                        color="white"
+                        containerStyle={{ backgroundColor: '#FF5A72', height:50, width:50, marginTop:30 }}
+                        onPress={this.handleSave}
+                    />
+                </View>
+            </View>
+        )
+    }
+}
 export class OnboardingImageScreen extends React.Component {
     constructor(props){
         super(props);
@@ -260,6 +357,8 @@ export class OnboardingImageScreen extends React.Component {
             phone: navigation.getParam('phone', ''),
             pets: navigation.getParam('pets', ''),
             familyMembers: navigation.getParam('familyMembers', ''),
+            mobilityIssues: navigation.getParam('familyMembers', ''),
+            volunteer: navigation.getParam('volunteer', ''),
             image: null,
             imageURI: null,
             status: "unverified"
@@ -302,20 +401,32 @@ export class OnboardingImageScreen extends React.Component {
         return(
             <View style={onboardingStyle.mainContainer}>
                 <View style={onboardingStyle.headerContainer}>
-                    <Text style={onboardingStyle.smallText}>Step 4 of 4</Text>
+                    <Text style={onboardingStyle.smallText}>Step 5 of 5</Text>
                     <Text style={onboardingStyle.largeText}>Add your profile picture.</Text>
                 </View>
-                <ProfileImagePicker
-                    saveImage={this.saveImage}
-                />
-                <View>
-                    <Text
-                        style={onboardingStyle.skipText}
-                        onPress={() => {
-                            this.handleSave();
+                <View style={{flex:5}}>
+                    <ProfileImagePicker
+                        saveImage={this.saveImage}
+                    />
+                </View>
 
+                <View style={{flex:2,alignItems: 'center', justifyContent:'center'}}>
+                    <Button
+                        title="Proceed"
+                        color="#FFF"
+                        textStyle={{
+                            fontFamily: 'lato-bold',
+                            fontSize: 15
                         }}
-                    >Skip</Text>
+                        buttonStyle={{
+                            backgroundColor: '#FF5A72',
+                            width: 250,
+                            height: 50,
+                            borderRadius:  60,
+                        }}
+                        onPress={this.handleSave}
+                        disabled={this.state.image ? false : true}
+                    />
                 </View>
             </View>
         )
@@ -346,7 +457,7 @@ export class ProfileImagePicker extends React.Component {
         return(
             <View style={{ flex: 1, alignItems: 'center', justifyContent:'center' }}>
                 {image ?
-                    <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                    <Image source={{ uri: image }} style={{ width: 200, height: 200, marginBottom: 10 }} />
                     :
                     null
                 }
@@ -398,9 +509,9 @@ export class ProfileImagePicker extends React.Component {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: 'Images',
             }).catch(error => console.log(permissions, { error }));
-            console.log(status);
+                console.log(status);
             if (!result.cancelled) {
-                this.setState({ imageURI: result.uri });
+                this.setState({ image: result.uri });
                 this.saveImage(result.uri);
             }
         }
