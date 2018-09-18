@@ -6,14 +6,15 @@ import {
     TouchableOpacity,
     Image,
     ImageStore,
+    Picker
 } from "react-native";
 import { FormLabel, FormInput, FormValidationMessage, Button, Icon } from 'react-native-elements';
 import { Permissions, ImagePicker, Camera } from 'expo';
 import { postData } from "../api/db";
-import { AsyncStorage } from "react-native"
-
+import { AsyncStorage } from "react-native";
+import json from "../keys.json";
 import Geocode from "react-geocode";
-Geocode.setApiKey("AIzaSyBa_wplSqwJgriY4Zw-xPVZP81fr5kwSKA");
+Geocode.setApiKey(json.geocodeAPI);
 
 const onboardingStyle = StyleSheet.create({
     mainContainer: {
@@ -202,16 +203,34 @@ export class OnboardingHouseholdScreen extends React.Component {
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         DO YOU HAVE PETS?</FormLabel>
-                    <FormInput
-                        onChangeText={e=>{ this.setState({pets: e}); }}
-                    />
+                    <Picker
+                        selectedValue={this.state.pets}
+                        style={{ height: 40, width: "96%", marginLeft: "4%" }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({pets: itemValue})}>
+                        <Picker.Item label="Yes" value="true" />
+                        <Picker.Item label="No" value="false" />
+                    </Picker>
                     <FormLabel
                         labelStyle={{color: '#484848'}}>
                         NO. OF FAMILY MEMBERS
                     </FormLabel>
-                    <FormInput
-                        onChangeText={e=>{ this.setState({familyMembers: e}); }}
-                    />
+                    <Picker
+                        selectedValue={this.state.familyMembers}
+                        style={{ height: 40, width: "96%", marginLeft: "4%" }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({familyMembers: itemValue})}>
+                        <Picker.Item label="0" value="0" />
+                        <Picker.Item label="1" value="1" />
+                        <Picker.Item label="2" value="2" />
+                        <Picker.Item label="3" value="3" />
+                        <Picker.Item label="4" value="4" />
+                        <Picker.Item label="5" value="5" />
+                        <Picker.Item label="6" value="6" />
+                        <Picker.Item label="7" value="7" />
+                        <Picker.Item label="8" value="8 " />
+                        <Picker.Item label="9" value="9" />
+                        <Picker.Item label="10" value="10" />
+                        <Picker.Item label="11" value="11" />
+                    </Picker>
                 </View>
                 <View style={onboardingStyle.buttonContainer}>
                     <Icon
