@@ -13,7 +13,7 @@ import { postData } from "../api/db";
 import { AsyncStorage } from "react-native"
 
 import Geocode from "react-geocode";
-// Geocode.setApiKey("AIzaSyBxkd_k7Aw4qDZagtS5BDuAxdNS6EZbues");
+Geocode.setApiKey("AIzaSyBa_wplSqwJgriY4Zw-xPVZP81fr5kwSKA");
 
 const onboardingStyle = StyleSheet.create({
     mainContainer: {

@@ -39,16 +39,18 @@ export default class DashboardScreen extends React.Component {
         var queryBody = {
             "firstName": this.state.firstName,
             "lastName": this.state.lastName,
+            "address": this.state.address,
+            "phone": this.state.phone,
+            "pets": this.state.pets,
         }
         retrieveKey(queryBody, "testdb2")
             .then(data=>{
                 this.setState({
-                    status:"verified",
                     _id: data.docs[0]._id,
                     _rev: data.docs[0]._rev
                 });
                 return {
-                    status:"verified",
+                    status: this.state.status,
                     _id: data.docs[0]["_id"],
                     _rev: data.docs[0]["_rev"],
                     firstName: this.state.firstName,
@@ -74,6 +76,29 @@ export default class DashboardScreen extends React.Component {
     }
     verifySafety = () => {
         console.log("lmao");
+        this.setState({status: "verified"});
+        this.writeToState();
+        this.closeModal();
+    }
+    verifyAssistance = () => {
+        console.log("lmao");
+        this.setState({status: "need assistance"});
+        this.writeToState();
+        this.closeModal();
+    }
+    writeToState = () => {
+        AsyncStorage.setItem("state", JSON.stringify(this.state))
+            .then(success=>{
+                console.log("Onboarding: Write Data Success!",success);
+            })
+            .catch(fail =>console.log("Onboarding: Write Data Fail!",fail));
+    }
+    openModal = () => {
+        this.setState({showModal: true});
+    }
+    closeModal = () => {
+        this.setState({showModal: false});
+        this.patchDB();
     }
     render() {
         const {fireState} = this.state.fireState
@@ -93,10 +118,10 @@ export default class DashboardScreen extends React.Component {
                             <TouchableOpacity style={[styles.button,styles.safe]} onPress={this.verifySafety}>
                                 <Text>Verify myself as safe</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={[styles.button,styles.assistance]} onPress={this.verifySafety}>
+                            <TouchableOpacity style={[styles.button,styles.assistance]} onPress={this.verifyAssistance}>
                                 <Text>I require assistance</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={this.verifySafety}>
+                            <TouchableOpacity style={styles.button} onPress={this.closeModal}>
                                 <Text>Cancel</Text>
                             </TouchableOpacity>
                         </View>
@@ -112,23 +137,26 @@ export default class DashboardScreen extends React.Component {
                                     <Avatar
                                         small
                                         rounded
-                                        source={{uri: this.state.image}}
+                                        source={{uri: "data:text/plain;base64," + this.state.image}}
                                         onPress={() => console.log("Works!")}
                                         activeOpacity={0.7}
                                     />
                                     <Text style={styles.headerText}>Hello {this.state.lastName}</Text>
 
                                 </View>
-                                <Text
+                                <View
                                     style={[{backgroundColor:this.getColor()}, styles.fireCard]}
-                                    onPress={this.patchDB}
+                                    onPress={this.openModal}
                                 >
+                                    <Text style={styles.fireText}>
                                     {this.state.fireState == 'pink' ?
                                         "There is a wildfire nearby! 🔥"
                                         :
                                         "There are no incidents near you ☮"
-                                    }️
-                                </Text>
+                                    }
+                                    </Text>
+                                    <Text style={styles.fireText}>Your Safety status: {this.state.status}</Text>
+                                </View>
                             </View>
                         </View>
 
@@ -183,7 +211,7 @@ const styles = {
         flex: 1
     },
     exampleContainer: {
-        paddingVertical: 10
+        paddingVertical: 20
     },
     wholeHeader: {
         // backgroundColor: "red",
@@ -210,19 +238,20 @@ const styles = {
         width:"100%",
     },
     fireCard:{
-        fontSize: 16,
         marginRight:"5%",
         marginLeft:"5%",
         marginTop:20,
         paddingTop:24,
         paddingBottom:24,
-        textAlign: "center",
         borderColor: 'rgba(0,0,0,0)',
         borderRadius:10,
         borderWidth: 1,
+    },
+    fireText: {
+        fontSize: 16,
+        textAlign: "center",
 
     },
-
     mapViewStyle: {
         backgroundColor: "white",
         width:"90%",

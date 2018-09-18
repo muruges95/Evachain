@@ -18,6 +18,7 @@ const HomeIcon = props => {
 	} else {
 		var image = house3;
 	}
+	console.log('homeicon props',this.props);
 	return (
 		<MapView.Marker
 			coordinate={{
@@ -30,9 +31,9 @@ const HomeIcon = props => {
 			style={{width:20, height:20}}
 		>
 			<MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
-			<View>
-					<Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
-			</View>
+                <View>
+                    <Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
+                </View>
 			</MapView.Callout>
 		</MapView.Marker>   
 	);
@@ -131,6 +132,7 @@ class MapScreen extends React.Component {
 				if (this.props.homes === undefined || this.props.homes === []) {
 					var homesIcons = null;
 				} else {
+				    console.log('homes', this.props.homes);
 					var homesIcons = this.props.homes.map((person, i) => {
 						let home = person.doc;
 						return (
