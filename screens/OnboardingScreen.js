@@ -393,7 +393,7 @@ export class OnboardingImageScreen extends React.Component {
     saveImage = (uri) => {
         console.log('URI', uri);
         ImageStore.getBase64ForTag(uri, (data) => {
-            this.setState({image: data});
+            this.setState({image: data, imageURI: uri});
         }, e => console.warn("getBase64ForTag: ", e))
         console.log(this.state);
     }
@@ -425,7 +425,7 @@ export class OnboardingImageScreen extends React.Component {
                             borderRadius:  60,
                         }}
                         onPress={this.handleSave}
-                        disabled={this.state.image ? false : true}
+                        disabled={false}
                     />
                 </View>
             </View>
