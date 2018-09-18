@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, SafeAreaView, TouchableOpacity } from "react-native";
+import { WebView, Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 import InfoCarousel from "../components/InfoCarousel"
 import { Avatar } from 'react-native-elements';
 import { MapView } from "expo";
@@ -42,6 +42,8 @@ export default class DashboardScreen extends React.Component {
             "address": this.state.address,
             "phone": this.state.phone,
             "pets": this.state.pets,
+            "lat": this.state.lat,
+            "lng": this.state.lng
         }
         retrieveKey(queryBody, "testdb2")
             .then(data=>{
@@ -125,15 +127,7 @@ export default class DashboardScreen extends React.Component {
                         <View style={styles.exampleContainer}>
                             <View style={styles.wholeHeader}>
                                 <View style={styles.headerStyle}>
-                                    <Avatar
-                                        small
-                                        rounded
-                                        source={{uri: "data:text/plain;base64," + this.state.imageURI}}
-                                        onPress={() => console.log("Works!")}
-                                        activeOpacity={0.7}
-                                    />
-                                    <Text style={styles.headerText}>Hello {this.state.lastName}</Text>
-
+                                    <Text style={styles.headerText}>Hello {this.state.firstName}</Text>
                                 </View>
                                 <View
                                     style={[{backgroundColor:this.getColor()}, styles.fireCard]}
@@ -151,28 +145,12 @@ export default class DashboardScreen extends React.Component {
                             </View>
                         </View>
 
-                        <View style={styles.exampleContainer}>
-                            <Text style={styles.shelterText}>Your shelter</Text>
+                        <View style={[styles.exampleContainer,{height: 500}]}>
+                            <Text style={styles.shelterText}>Up-to-date fire info</Text>
                             <View style={styles.mapViewStyle}>
-                                <MapView
-                                    style={{
-                                        flex: 1
-                                    }}
-                                    initialRegion={{
-                                        latitude: 37.3318456,
-                                        longitude: -122.0296002,
-                                        latitudeDelta: 0.0922,
-                                        longitudeDelta: 0.0421
-
-                                    }}
-                                    showsUserLocation={true}
-                                    showsMyLocationButton={true}
-                                    zoomEnabled={false}
-                                    scrollEnabled={false}
-                                    rotateEnabled={false}
-                                >
-
-                                </MapView>
+                                <WebView
+                                    source={{html: '<a class="twitter-timeline" data-lang="en" data-width="400" data-height="480" data-dnt="true" href="https://twitter.com/CAL_FIRE?ref_src=twsrc%5Etfw">Tweets by CAL_FIRE</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'}}
+                                />
                             </View>
                         </View>
                         <View style={styles.exampleContainer}>
@@ -246,7 +224,7 @@ const styles = {
     mapViewStyle: {
         backgroundColor: "white",
         width:"90%",
-        height:200,
+        height:460,
         marginLeft:"5%",
         marginRight:"5%",
     },
