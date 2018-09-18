@@ -107,10 +107,10 @@ export default class DashboardScreen extends React.Component {
                             <Text style={styles.fireAlertText}>A wildfire is blazing near Menlo Park</Text>
                             <Text style={styles.verifySafetyText}>Please confirm your safety. It helps our emergency personnel respond faster.</Text>
                             <TouchableOpacity style={[styles.button,styles.assistance]} onPress={this.verifyAssistance}>
-                                <Text>I require assistance</Text>
+                                <Text style={styles.assistanceText}>I require assistance</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.button,styles.safe]} onPress={this.verifySafety}>
-                                <Text>I am safe</Text>
+                                <Text style={styles.safeText}>I am safe</Text>
                             </TouchableOpacity>
                         </View>
                     </Modal>
@@ -252,7 +252,7 @@ const styles = {
     },
     modal: {
         marginTop: 150,
-        marginBottom: 150,
+        marginBottom: 120,
         marginRight: "6%",
         marginLeft: "6%",
         width: "88%",
@@ -290,19 +290,29 @@ const styles = {
     safe: {
         borderColor: '#FF5A72',
         backgroundColor:'#FFF',
-        color: '#FF5A72',
-        marginTop: 20,
+        marginTop: 7,
         marginBottom: 20,
+        paddingTop: 15,
+        paddingBottom: 15,
+        borderRadius: 100,
         borderWidth: 1
     },
     assistance: {
         backgroundColor: "#FF5A72",
-        fontFamily: 'lato-bold',
-        fontSize: 14,
-        marginTop: 15,
-        marginBottom: 15,
+        marginTop: 22,
+        paddingTop: 15,
+        paddingBottom: 15,
+        borderRadius: 100,
+    },
+    safeText: {
+        fontFamily: 'lato-regular',
+        color: '#FF5A72'
+    },
+    assistanceText: {
+        fontFamily: 'lato-regular',
         color: '#FFF'
     }
+
 }
 
 

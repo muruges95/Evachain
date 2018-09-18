@@ -13,7 +13,7 @@ const CustomTabBar = ({ navigation }) => {
 	const { routes } = navigation.state;
 	return (
 		<SafeAreaView style={styles.tabContainer}>
-			<View style={{ borderColor: "#ff5a72",flexDirection: 'row', justifyContent: 'center', borderWidth: 2, borderRadius: 10, width: 120 }}>
+			<View style={{ borderColor: "#ff5a72",flexDirection: 'row', justifyContent: 'center', borderWidth: 2, borderRadius: 20, width: 120 }}>
 				{routes.map(route => {
 					
 					if (route.key === "Map" && navigation.state.index === 0) {
@@ -84,6 +84,7 @@ const CustomTabs = createNavigationContainer(
 
 const styles = StyleSheet.create({
 	tabContainer: {
+		marginTop: 20,
 		height: 30,
 		position: 'absolute',
 		top: 10,
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
 	}, 
 	tabText: {
 		lineHeight: 20,
-		color: "#ff5a72"
+		color: "#ff5a72",
+		fontFamily: 'lato-regular'
 	},
 	tabLeftActivated: {
 		flex: 0,
@@ -109,8 +111,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: "#ff5a72",
-		borderBottomLeftRadius: 10,
-		borderTopLeftRadius: 10
+		borderBottomLeftRadius: 20,
+		borderTopLeftRadius: 20
 	},
 	tabRightActivated: {
 		flex: 0,
@@ -118,12 +120,14 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: "#ff5a72",
-		borderBottomRightRadius: 10,
-		borderTopRightRadius: 10
+		borderBottomRightRadius: 20,
+		borderTopRightRadius: 20
 	},  
 	tabTextActivated: {
 		lineHeight: 20,
-		color: "white"
+		color: "white",
+		fontFamily: 'lato-regular'
+
 	},
   	container: {
 		position: 'absolute',
