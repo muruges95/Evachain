@@ -26,7 +26,7 @@ export default class DashboardScreen extends React.Component {
     _retrieveData = () => {
         AsyncStorage.getItem('state')
             .then(e=>{
-                console.log("Dashboard: Retrieved Data Success!");
+                console.log("Dashboard: Retrieved Data Success!", JSON.parse(e));
                 this.setState(JSON.parse(e))
             })
             .catch(e=>console.log("Dashboard: Retrieved Data Fail!",e))
@@ -49,25 +49,16 @@ export default class DashboardScreen extends React.Component {
                     _id: data.docs[0]._id,
                     _rev: data.docs[0]._rev
                 });
+
                 return {
-                    status: this.state.status,
-                    _id: data.docs[0]["_id"],
-                    _rev: data.docs[0]["_rev"],
-                    firstName: this.state.firstName,
-                    lastName: this.state.lastName,
-                    address: this.state.address,
-                    phone: this.state.phone,
-                    pets: this.state.pets,
-                    familyMembers: this.state.familyMembers,
-                    image: this.state.image,
-                    imageURI: this.state.imageURI
+                    ...this.state
                 }
             })
             .then(jsonData=>{
                 updateRow(this.state._id, jsonData, "testdb2");
             })
             .catch(e=>{
-                console.log("Error:", e);
+                console.log("Error Patching:", e);
             });
 
     }
@@ -134,7 +125,7 @@ export default class DashboardScreen extends React.Component {
                                     <Avatar
                                         small
                                         rounded
-                                        source={{uri: "data:text/plain;base64," + this.state.image}}
+                                        source={{uri: "data:text/plain;base64," + this.state.imageURI}}
                                         onPress={() => console.log("Works!")}
                                         activeOpacity={0.7}
                                     />

@@ -18,6 +18,7 @@ import {
     OnboardingNameScreen,
     OnboardingDetailScreen,
     OnboardingHouseholdScreen,
+    OnboardingVolunteer,
     OnboardingImageScreen,
     LocationPermissionScreen  } from "./screens/OnboardingScreen";
 
@@ -28,6 +29,7 @@ export const Onboarding = createStackNavigator(
         OnboardingName: OnboardingNameScreen,
         OnboardingDetail: OnboardingDetailScreen,
         OnboardingHousehold: OnboardingHouseholdScreen,
+        OnboardingVolunteer: OnboardingVolunteer,
         OnboardingImage: OnboardingImageScreen,
         LocationPermission: LocationPermissionScreen
     },
