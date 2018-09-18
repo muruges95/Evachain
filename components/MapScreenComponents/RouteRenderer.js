@@ -12,7 +12,7 @@ const routeRenderer = (props) => {
 				apikey={GOOGLE_MAPS_APIKEY}
 				origin={route.origin}
 				destination={route.destination}
-				strokeWidth={2}
+				strokeWidth={6}
 				strokeColor={route.strokeColor}
 			/>
 		)
