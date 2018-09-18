@@ -425,7 +425,7 @@ export class OnboardingImageScreen extends React.Component {
                             borderRadius:  60,
                         }}
                         onPress={this.handleSave}
-                        disabled={this.state.image ? false : true}
+                        disabled={false}
                     />
                 </View>
             </View>
