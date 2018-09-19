@@ -106,16 +106,13 @@ export default class DashboardScreen extends React.Component {
                         onBackButtonPress={this.modalHide}
                     >
                         <View style={{ flex: 1 }}>
-                            <Text style={styles.fireAlert}>Fire Alert!</Text>
-                            <Text style={styles.fireAlert}>Verify your safety</Text>
-                            <TouchableOpacity style={[styles.button,styles.safe]} onPress={this.verifySafety}>
-                                <Text>Verify myself as safe</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.fireAlertText}>A wildfire is blazing near Menlo Park</Text>
+                            <Text style={styles.verifySafetyText}>Please confirm your safety. It helps our emergency personnel respond faster.</Text>
                             <TouchableOpacity style={[styles.button,styles.assistance]} onPress={this.verifyAssistance}>
-                                <Text>I require assistance</Text>
+                                <Text style={styles.assistanceText}>I require assistance</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={this.closeModal}>
-                                <Text>Cancel</Text>
+                            <TouchableOpacity style={[styles.button,styles.safe]} onPress={this.verifySafety}>
+                                <Text style={styles.safeText}>I am safe</Text>
                             </TouchableOpacity>
                         </View>
                     </Modal>
@@ -170,6 +167,9 @@ export default class DashboardScreen extends React.Component {
 const styles = {
     safeArea: {
         flex: 1,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFF'
         // backgroundColor: colors.black
     },
     container: {
@@ -230,7 +230,7 @@ const styles = {
     },
     modal: {
         marginTop: 150,
-        marginBottom: 150,
+        marginBottom: 120,
         marginRight: "6%",
         marginLeft: "6%",
         width: "88%",
@@ -238,10 +238,23 @@ const styles = {
         backgroundColor: "white",
         borderRadius: 10,
     },
-    fireAlert: {
-        fontSize: 30,
-        margin: 5,
+    fireAlertText: {
+        fontSize: 20,
+        marginTop: 30,
+        marginLeft: 20,
+        marginRight: 20,
+        fontFamily: 'lato-black',
+        color: '#484848',
         textAlign: "center"
+    },
+    verifySafetyText: {
+        fontSize: 14,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        fontFamily: 'lato-regular',
+        color: '#919191',
+        textAlign: 'center'
     },
     button: {
         margin: 3,
@@ -253,11 +266,31 @@ const styles = {
         padding: 12
     },
     safe: {
-        backgroundColor: "green",
+        borderColor: '#FF5A72',
+        backgroundColor:'#FFF',
+        marginTop: 7,
+        marginBottom: 20,
+        paddingTop: 15,
+        paddingBottom: 15,
+        borderRadius: 100,
+        borderWidth: 1
     },
     assistance: {
-        backgroundColor: "red",
+        backgroundColor: "#FF5A72",
+        marginTop: 22,
+        paddingTop: 15,
+        paddingBottom: 15,
+        borderRadius: 100,
+    },
+    safeText: {
+        fontFamily: 'lato-regular',
+        color: '#FF5A72'
+    },
+    assistanceText: {
+        fontFamily: 'lato-regular',
+        color: '#FFF'
     }
+
 }
 
 
