@@ -7,14 +7,19 @@ import house3 from '../assets/logo.png';
 import greenHouse from "../assets/green_house.png";
 import greyHouse from "../assets/grey_house.png"
 import redHouse from "../assets/red_house.png"
+import myLocation from "../assets/blue_dot.png"
 import Locater from '../components/MapScreenComponents/Locater';
 import RouteRenderer from '../components/MapScreenComponents/RouteRenderer';
 
-const getAppropriateHouse = (point) => {
+const BLUE = "#1267ff";
+
+const getAppropriateIcon = (point) => {
   if (point.status === "verified"){
     return greenHouse;
   } else if (point.status === "need assistance") {
     return redHouse;
+  } else if (point.status === "myLocation"){
+    return myLocation;
   } else {
     return greyHouse;
   }
@@ -49,10 +54,10 @@ const FiremanHomeIcons = props => {
 	);
 };
 
-const CivilianIcons = props => {
+const MapIcons = props => {
   return props.points.map((point, i) => {
     if (point.status !== undefined) {
-      let image = getAppropriateHouse(point);
+      let image = getAppropriateIcon(point);
     
       return (
         <MapView.Marker 
@@ -86,29 +91,8 @@ const CivilianIcons = props => {
   })
 }
 
-const VolunteerIcons = props => {
-  return (
-    <MapView.Marker
-      coordinate={{
-        latitude: 40.6149707,
-        longitude: -122.4366157,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }}
-      // style={{}}
-      >
 
-      <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
-                <View>
-                    <Text style={{ fontSize: 16, marginBottom: 5 }}>Shelter</Text>
-                </View>
-			</MapView.Callout>
-
-      </MapView.Marker>
-  );  
-
-}
-
+// 40.58767247144677%2C-122.42824551390834
 // Example of a route list
 const civilianRoutes = [
   {
@@ -120,7 +104,7 @@ const civilianRoutes = [
       latitude: 40.5837568454257,
       longitude: -122.42677682316389
     },
-    strokeColor: "blue"
+    strokeColor: BLUE
   },
   {
     origin: {
@@ -128,21 +112,43 @@ const civilianRoutes = [
       longitude: -122.42677682316389
     },
     destination: {
-      latitude: 40.58537867922963,
-      longitude: -122.43014665918184
+      latitude: 40.585008197061825,
+      longitude: -122.42787803384329
     },
     strokeColor: "red"
   },  
+  {
+    origin: {
+      latitude: 40.585008197061825,
+      longitude: -122.42787803384329
+    },
+    destination: {
+      latitude: 40.58537867922963,
+      longitude: -122.43014665918184
+    },
+    strokeColor: BLUE
+  }, 
   {
     origin: {
       latitude: 40.58537867922963,
       longitude: -122.43014665918184
     },
     destination: {
+      latitude: 40.58764571387112,
+      longitude: -122.42822614994179
+    },
+    strokeColor: "orange"
+  },
+  {
+    origin: {
+      latitude: 40.58764571387112,
+      longitude: -122.42822614994179
+    },
+    destination: {
       latitude: 40.588371300000006,
       longitude: -122.42930109999998
     },
-    strokeColor: "orange"
+    strokeColor: BLUE
   }
 ]
 
@@ -153,9 +159,9 @@ const civilianPoints = [
 
   },
   {
-    lat: 40.57975660000001,
-    lng: -122.4249011,
-      status: "verified"
+    lat: 40.57945000000001,
+    lng: -122.4249511,
+      status: "myLocation"
   },
 ]
 
@@ -205,7 +211,7 @@ const volunteerRoutes = [
       latitude: 40.6173924,
       longitude: -122.4342772
     },
-    strokeColor: "blue"
+    strokeColor: BLUE
   },
   {
     origin: {
@@ -213,10 +219,38 @@ const volunteerRoutes = [
       longitude: -122.4342772
     },
     destination: {
+      latitude: 40.61569504377707,
+      longitude: -122.4354638432618
+    },
+    strokeColor: "orange"
+  },
+  {
+    origin: {
+      latitude: 40.61569504377707,
+      longitude: -122.4354638432618
+    },
+    destination: {
       latitude: 40.6149707,
       longitude: -122.4366157
     },
-    strokeColor: "orange"
+    strokeColor: BLUE
+  }
+]
+const volunteerPoints = [
+  {
+    lat: 40.618255000000016,
+    lng: -122.43134709999998,
+    status: "myLocation"
+
+  },
+  {
+    lat: 40.6175224,
+    lng: -122.4342772,
+    status: "need assistance"
+  },
+  {
+    lat: 40.6149707,
+    lng: -122.4366157
   }
 ]
 
@@ -310,6 +344,16 @@ const fireManViewHomes = [
         status: "verified"
     },
 ]
+
+const civilianFocalPtLat = 40.58427959424427;
+const civilianFocalPtLng = -122.427;
+const civilianFocalPtLatDelta = 0.01;
+const civilianFocalPtLngDelta = 0.012;
+const volunteerFocalPtlat = 40.6167;
+const volunteerFocalPtlng = -122.4338;
+const volunteerFocalPtLatDelta = 0.002;
+const volunteerFocalPtLngDelta = 0.007;
+
 class MapScreen extends React.Component {
 
   constructor(props) {
@@ -317,23 +361,16 @@ class MapScreen extends React.Component {
     this.state = {
         latitude: 37.3318456,
         longitude: -122.0296002,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.012,
+        latitudeDelta: volunteerFocalPtLatDelta,
+        longitudeDelta: volunteerFocalPtLngDelta,
         logo: house1,
-        view: "civilian",
+        view: "volunteer",
         homes: [],
         shelters: []
     };  
     this._getLocationAsync = this._getLocationAsync.bind(this);
+
   }
-
-
-  civilianFocalPtLat = 40.58427959424427;
-  civilianFocalPtLng = -122.427;
-
-  volunteerFocalPtlat = 40.6167;
-  volunteerFocalPtlng = -122.4338;
-
 
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -346,10 +383,10 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              // latitude: this.volunteerFocalPtlat,
-              // longitude: this.volunteerFocalPtlng,
-              latitude: this.civilianFocalPtLat,
-              longitude: this.civilianFocalPtLng,
+              latitude: volunteerFocalPtlat,
+              longitude: volunteerFocalPtlng,
+              // latitude: this.civilianFocalPtLat,
+              // longitude: this.civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               latitudeDelta: this.state.latitudeDelta,
@@ -408,7 +445,7 @@ class MapScreen extends React.Component {
 								ref = {component => this._map = component}
 								initialRegion={initialRegion}
 								>
-                <VolunteerIcons />
+                <MapIcons points={volunteerPoints}/>
 								<RouteRenderer routes={volunteerRoutes} />
 							</MapView>
               <Locater onPress={this._getLocationAsync}/>
@@ -422,7 +459,7 @@ class MapScreen extends React.Component {
 						ref = {component => this._map = component}
 						initialRegion={initialRegion}
 					>
-          <CivilianIcons points={civilianPoints}/>
+          <MapIcons points={civilianPoints}/>
           <RouteRenderer routes={civilianRoutes} />
 					</MapView>
 					<Locater onPress={this._getLocationAsync}/>
