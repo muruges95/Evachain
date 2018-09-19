@@ -165,41 +165,41 @@ const civilianPoints = [
   },
 ]
 
-const firemanRoutes = [
-  {
-    origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
-    },
-    destination: {
-      latitude: 37.439990,
-      longitude: -122.158129
-    },
-    strokeColor: "red"
-  },
-  {
-    origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
-    },
-    destination: {
-      latitude: 37.488306,
-      longitude: -122.217657
-    },
-    strokeColor: "green"
-  },  
-  {
-    origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
-    },
-    destination: {
-      latitude: 37.452911,
-      longitude: -122.183045
-    },
-    strokeColor: "pink"
-  }
-]
+// const firemanRoutes = [
+//   {
+//     origin: {
+//       latitude: 37.451264,
+//       longitude: -122.187760
+//     },
+//     destination: {
+//       latitude: 37.439990,
+//       longitude: -122.158129
+//     },
+//     strokeColor: "red"
+//   },
+//   {
+//     origin: {
+//       latitude: 37.451264,
+//       longitude: -122.187760
+//     },
+//     destination: {
+//       latitude: 37.488306,
+//       longitude: -122.217657
+//     },
+//     strokeColor: "green"
+//   },  
+//   {
+//     origin: {
+//       latitude: 37.451264,
+//       longitude: -122.187760
+//     },
+//     destination: {
+//       latitude: 37.452911,
+//       longitude: -122.183045
+//     },
+//     strokeColor: "pink"
+//   }
+// ]
 
 const volunteerRoutes = [
   {
@@ -254,7 +254,7 @@ const volunteerPoints = [
   }
 ]
 
-const fireManViewRoutes = [
+const firemanRoutes = [
     {
         origin: {
             latitude: 40.690424300000004,
@@ -304,7 +304,7 @@ const fireManViewRoutes = [
     }
 ]
 
-const fireManViewHomes = [
+const firemanPoints = [
     {
         lat: 40.690424300000004,
         lng: -122.3862871,
@@ -353,6 +353,10 @@ const volunteerFocalPtlat = 40.6167;
 const volunteerFocalPtlng = -122.4338;
 const volunteerFocalPtLatDelta = 0.002;
 const volunteerFocalPtLngDelta = 0.007;
+const firemanFocalPtlat = 40.690424300000004;
+const firemanFocalPtlng = -122.3893871;
+const firemanFocalPtLatDelta = 0.003;
+const firemanFocalPtLngDelta = 0.01;
 
 class MapScreen extends React.Component {
 
@@ -361,10 +365,10 @@ class MapScreen extends React.Component {
     this.state = {
         latitude: 37.3318456,
         longitude: -122.0296002,
-        latitudeDelta: volunteerFocalPtLatDelta,
-        longitudeDelta: volunteerFocalPtLngDelta,
+        latitudeDelta: firemanFocalPtLatDelta,
+        longitudeDelta: firemanFocalPtLngDelta,
         logo: house1,
-        view: "volunteer",
+        view: "fireman",
         homes: [],
         shelters: []
     };  
@@ -383,12 +387,14 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              latitude: volunteerFocalPtlat,
-              longitude: volunteerFocalPtlng,
+              // latitude: volunteerFocalPtlat,
+              // longitude: volunteerFocalPtlng,
               // latitude: this.civilianFocalPtLat,
               // longitude: this.civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
+              latitude: firemanFocalPtlat,
+              longitude: firemanFocalPtlng,
               latitudeDelta: this.state.latitudeDelta,
               longitudeDelta: this.state.longitudeDelta
             }, 1300)
@@ -412,18 +418,18 @@ class MapScreen extends React.Component {
 				longitudeDelta: this.state.longitudeDelta
 			}
 
-			if (this.state.view === "authority") {
-				if (this.props.homes === undefined || this.props.homes === []) {
-					var homesIcons = null;
-				} else {
-				    console.log('homes', this.props.homes);
-					var homesIcons = this.props.homes.map((person, i) => {
-						let home = person.doc;
-						return (
-							<FiremanHomeIcons lat={home.lat} lng={home.lng} key={home.lat} status={home.status} />
-						);
-					})
-				}
+			if (this.state.view === "fireman") {
+				// if (this.props.homes === undefined || this.props.homes === []) {
+				// 	var homesIcons = null;
+				// } else {
+				//     console.log('homes', this.props.homes);
+				// 	var homesIcons = this.props.homes.map((person, i) => {
+				// 		let home = person.doc;
+				// 		return (
+				// 			<FiremanHomeIcons lat={home.lat} lng={home.lng} key={home.lat} status={home.status} />
+				// 		);
+				// 	})
+				// }
 				return (
 					<View style={styles.container}>
 						<MapView
@@ -431,7 +437,8 @@ class MapScreen extends React.Component {
 							ref = {component => this._map = component}
 							initialRegion={initialRegion}
 						>
-							{homesIcons}
+              {/* {homesIcons} */}
+              <MapIcons points={firemanPoints}/>
               <RouteRenderer routes={firemanRoutes} />
 						</MapView>
 						<Locater onPress={this._getLocationAsync}/>
