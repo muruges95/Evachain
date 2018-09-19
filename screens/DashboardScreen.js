@@ -124,17 +124,17 @@ export default class DashboardScreen extends React.Component {
                         <View style={styles.exampleContainer}>
                             <View style={styles.wholeHeader}>
                                 <View style={styles.headerStyle}>
-                                    <Text style={styles.headerText}>Hello {this.state.firstName}</Text>
+                                    <Text style={styles.headerText}>Hello, {this.state.firstName}</Text>
                                 </View>
                                 <View
-                                    style={[{backgroundColor:this.getColor()}, styles.fireCard]}
+                                    style={[{backgroundColor:'#FF5A72'}, styles.fireCard]}
                                     onPress={this.openModal}
                                 >
                                     <Text style={styles.fireText}>
                                     {this.state.fireState == 'pink' ?
-                                        "There is a wildfire nearby! 🔥"
+                                        "There is a wildfire nearby!"
                                         :
-                                        "There are no incidents near you ☮"
+                                        "There are no incidents near you"
                                     }
                                     </Text>
                                     <Text style={styles.fireText}>Your Safety status: {this.state.status}</Text>
@@ -142,16 +142,16 @@ export default class DashboardScreen extends React.Component {
                             </View>
                         </View>
 
-                        <View style={[styles.exampleContainer,{height: 500}]}>
-                            <Text style={styles.shelterText}>Up-to-date fire info</Text>
+                        <View style={[styles.exampleContainer,{height: 480}]}>
+                            <Text style={styles.shelterText}>News Feed</Text>
                             <View style={styles.mapViewStyle}>
                                 <WebView
-                                    source={{html: '<a class="twitter-timeline" data-lang="en" data-width="400" data-height="480" data-dnt="true" href="https://twitter.com/CAL_FIRE?ref_src=twsrc%5Etfw">Tweets by CAL_FIRE</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'}}
+                                    source={{html: '<a class="twitter-timeline" data-lang="en" data-dnt="true" href="https://twitter.com/CAL_FIRE?ref_src=twsrc%5Etfw">Tweets by CAL_FIRE</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'}}
                                 />
                             </View>
                         </View>
                         <View style={styles.exampleContainer}>
-                            <Text style={styles.shelterText}>Important information</Text>
+                            <Text style={styles.shelterText}>Curated Articles</Text>
                             <InfoCarousel
                                 emergencyState={this.state.fireState == 'pink'}
                             />
@@ -180,36 +180,40 @@ const styles = {
         flex: 1
     },
     exampleContainer: {
-        paddingVertical: 20
     },
     wholeHeader: {
         // backgroundColor: "red",
         height: 140,
     },
     headerStyle: {
-        marginTop: "5%",
+        marginTop: "15%",
         flexDirection: 'row',
-        marginLeft: "5%",
-        marginRight: "5%",
+        marginLeft: "8%",
+        marginRight: "8%",
     },
     headerText: {
-        marginLeft: "5%",
         fontSize: 18,
         fontWeight: 'bold',
+        fontFamily: 'lato-black',
+        color: '#484848'
     },
     shelterText: {
-        marginLeft: "5%",
+        marginLeft: "10%",
         fontSize: 18,
         fontWeight: 'bold',
+        fontFamily: 'lato-black',
+        marginBottom: 30,
+        marginTop: 75,
+        color: '#484848'
     },
     elementsContainer: {
         backgroundColor: '#ecf5fd',
         width:"100%",
     },
     fireCard:{
-        marginRight:"5%",
-        marginLeft:"5%",
-        marginTop:20,
+        marginRight:"8%",
+        marginLeft:"8%",
+        marginTop:30,
         paddingTop:24,
         paddingBottom:24,
         borderColor: 'rgba(0,0,0,0)',
@@ -217,16 +221,19 @@ const styles = {
         borderWidth: 1,
     },
     fireText: {
-        fontSize: 16,
+        fontSize: 14,
         textAlign: "center",
+        fontFamily: 'lato-bold',
+        color: '#FFF',
+        lineHeight: 18
 
     },
     mapViewStyle: {
         backgroundColor: "white",
         width:"90%",
-        height:460,
-        marginLeft:"5%",
-        marginRight:"5%",
+        height:400,
+        marginLeft:"8%",
+        marginRight:"8%",
     },
     modal: {
         marginTop: 150,
