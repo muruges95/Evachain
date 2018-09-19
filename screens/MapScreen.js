@@ -4,11 +4,21 @@ import { Text, View, FlatList, StyleSheet, TouchableOpacity, Image } from "react
 import house1 from '../assets/house1.png';
 import house2 from '../assets/house2.png';
 import house3 from '../assets/logo.png';
-import { retrieveData, postData, toJson } from '../api/db.js';
+import greenHouse from "../assets/green_house.png";
+import greyHouse from "../assets/grey_house.png"
+import redHouse from "../assets/red_house.png"
 import Locater from '../components/MapScreenComponents/Locater';
 import RouteRenderer from '../components/MapScreenComponents/RouteRenderer';
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyCj71zkYDMHtC2wjICDyUYluXOz54eKzmw';
+const getAppropriateHouse = (point) => {
+  if (point.status === "verified"){
+    return greenHouse;
+  } else if (point.status === "need assistance") {
+    return redHouse;
+  } else {
+    return greyHouse;
+  }
+}
 
 const FiremanHomeIcons = props => {
 	if (props.status === "verified") {
@@ -40,25 +50,40 @@ const FiremanHomeIcons = props => {
 };
 
 const CivilianIcons = props => {
-  return (
-    <MapView.Marker
-      coordinate={{
-        latitude: 40.588371300000006,
-        longitude: -122.42930109999998,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }}
-      // style={{}}
-      >
-
-      <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
-                <View>
-                    <Text style={{ fontSize: 16, marginBottom: 5 }}>Shelter</Text>
-                </View>
-			</MapView.Callout>
-
-      </MapView.Marker>
-  );
+  return props.points.map((point, i) => {
+    if (point.status !== undefined) {
+      let image = getAppropriateHouse(point);
+    
+      return (
+        <MapView.Marker 
+          coordinate={{
+            latitude: point.lat,
+            longitude: point.lng,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          image={image}
+          style={{width:5, height:5}}
+          key={point.lng}
+          />
+      );
+    } else {
+      return (
+        <MapView.Marker 
+          coordinate={{
+            latitude: point.lat,
+            longitude: point.lng,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          key={point.lng}
+          // image={image}
+          // style={{width:20, height:20}}
+          />
+      );
+    }
+    
+  })
 }
 
 const VolunteerIcons = props => {
@@ -119,6 +144,19 @@ const civilianRoutes = [
     },
     strokeColor: "orange"
   }
+]
+
+const civilianPoints = [
+  {
+    lat: 40.588371300000006,
+    lng: -122.42930109999998,
+
+  },
+  {
+    lat: 40.57975660000001,
+    lng: -122.4249011,
+      status: "verified"
+  },
 ]
 
 const firemanRoutes = [
@@ -282,7 +320,7 @@ class MapScreen extends React.Component {
         latitudeDelta: 0.01,
         longitudeDelta: 0.012,
         logo: house1,
-        view: "volunteer",
+        view: "civilian",
         homes: [],
         shelters: []
     };  
@@ -308,8 +346,10 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              latitude: this.volunteerFocalPtlat,
-              longitude: this.volunteerFocalPtlng,
+              // latitude: this.volunteerFocalPtlat,
+              // longitude: this.volunteerFocalPtlng,
+              latitude: this.civilianFocalPtLat,
+              longitude: this.civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               latitudeDelta: this.state.latitudeDelta,
@@ -382,7 +422,7 @@ class MapScreen extends React.Component {
 						ref = {component => this._map = component}
 						initialRegion={initialRegion}
 					>
-          <CivilianIcons />
+          <CivilianIcons points={civilianPoints}/>
           <RouteRenderer routes={civilianRoutes} />
 					</MapView>
 					<Locater onPress={this._getLocationAsync}/>
