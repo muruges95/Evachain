@@ -61,6 +61,29 @@ const CivilianIcons = props => {
   );
 }
 
+const VolunteerIcons = props => {
+  return (
+    <MapView.Marker
+      coordinate={{
+        latitude: 40.6149707,
+        longitude: -122.4366157,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      }}
+      // style={{}}
+      >
+
+      <MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
+                <View>
+                    <Text style={{ fontSize: 16, marginBottom: 5 }}>Shelter</Text>
+                </View>
+			</MapView.Callout>
+
+      </MapView.Marker>
+  );  
+
+}
+
 // Example of a route list
 const civilianRoutes = [
   {
@@ -137,36 +160,25 @@ const firemanRoutes = [
 const volunteerRoutes = [
   {
     origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
+      latitude: 40.618580600000016,
+      longitude: -122.43134709999998
     },
     destination: {
-      latitude: 37.439990,
-      longitude: -122.158129
+      latitude: 40.6173924,
+      longitude: -122.4342772
     },
-    strokeColor: "red"
+    strokeColor: "blue"
   },
   {
     origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
+      latitude: 40.6173924,
+      longitude: -122.4342772
     },
     destination: {
-      latitude: 37.488306,
-      longitude: -122.217657
+      latitude: 40.6149707,
+      longitude: -122.4366157
     },
-    strokeColor: "green"
-  },  
-  {
-    origin: {
-      latitude: 37.451264,
-      longitude: -122.187760
-    },
-    destination: {
-      latitude: 37.452911,
-      longitude: -122.183045
-    },
-    strokeColor: "pink"
+    strokeColor: "orange"
   }
 ]
 
@@ -180,7 +192,7 @@ class MapScreen extends React.Component {
         latitudeDelta: 0.01,
         longitudeDelta: 0.012,
         logo: house1,
-        view: "civilian",
+        view: "volunteer",
         homes: [],
         shelters: []
     };  
@@ -190,6 +202,9 @@ class MapScreen extends React.Component {
 
   civilianFocalPtLat = 40.58427959424427;
   civilianFocalPtLng = -122.427;
+
+  volunteerFocalPtlat = 40.6167;
+  volunteerFocalPtlng = -122.4338;
 
 
     _getLocationAsync = async () => {
@@ -203,8 +218,8 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              latitude: this.civilianFocalPtLat,
-              longitude: this.civilianFocalPtLng,
+              latitude: this.volunteerFocalPtlat,
+              longitude: this.volunteerFocalPtlng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               latitudeDelta: this.state.latitudeDelta,
@@ -263,8 +278,10 @@ class MapScreen extends React.Component {
 								ref = {component => this._map = component}
 								initialRegion={initialRegion}
 								>
+                <VolunteerIcons />
 								<RouteRenderer routes={volunteerRoutes} />
 							</MapView>
+              <Locater onPress={this._getLocationAsync}/>
 						</View>
 				);
 			}
