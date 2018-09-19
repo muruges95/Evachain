@@ -1,4 +1,5 @@
 import React from 'react';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { AppLoading, Font } from 'expo';
 import {
     createBottomTabNavigator,
@@ -48,9 +49,30 @@ export const Onboarding = createStackNavigator(
 
 export const MainApp = createBottomTabNavigator(
     {
-        Dashboard: DashboardScreen,
-        ListMap: ListMapScreen,
-        Profile: ProfileScreen
+        Dashboard: {screen: DashboardScreen },
+        ListMap: { screen: ListMapScreen },
+        Profile: { screen: ProfileScreen },
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Dashboard') {
+                    iconName = `home${focused ? '': ''}`;
+                } else if (routeName === 'ListMap') {
+                    iconName = `map${focused ? '': ''}`;
+                } else if (routeName === 'Profile') {
+                    iconName = `user${focused ? '': ''}`;
+                }
+
+                return <SimpleLineIcons name={iconName} size={20} color={tintColor} />;
+                },
+        }),
+        tabBarOptions: {
+            activeTintColor: '#FF5A72',
+            inactiveTintColor: '#484848',
+        },
     }
 );
 

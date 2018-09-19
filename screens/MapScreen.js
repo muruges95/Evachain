@@ -182,6 +182,96 @@ const volunteerRoutes = [
   }
 ]
 
+const fireManViewRoutes = [
+    {
+        origin: {
+            latitude: 40.690424300000004,
+            longitude: -122.3862871
+        },
+        destination: {
+            latitude: 40.690051099999984,
+            longitude: -122.39385930000003
+        },
+        strokeColor: "black",
+    },
+    {
+        origin: {
+            latitude: 40.690051099999984,
+            longitude: -122.39385930000003
+        },
+        destination: {
+            latitude: 40.6929061,
+            longitude: -122.3919378
+        },
+
+        strokeColor: "black",
+    },
+    {
+        origin: {
+            latitude: 40.6929061,
+            longitude: -122.3919378
+        },
+        destination: {
+            latitude: 40.69071070000001,
+            longitude: -122.38785080000002
+        },
+
+        strokeColor: "black",
+    },
+    {
+        origin: {
+            latitude: 40.69071070000001,
+            longitude: -122.38785080000002
+        },
+        destination: {
+            latitude: 40.69236109999998,
+            longitude: -122.39013090000003
+        },
+
+        strokeColor: "black",
+    }
+]
+
+const fireManViewHomes = [
+    {
+        lat: 40.690424300000004,
+        lng: -122.3862871,
+        status: "need assistance"
+    },
+    {
+        lat: 40.690051099999984,
+        lng: -122.39385930000003,
+        status: "need assistance"
+    },
+    {
+        lat: 40.69071070000001,
+        lng: -122.38785080000002,
+        status: "need assistance"
+    },
+    {
+        lat: 40.69236109999998,
+        lng: -122.39013090000003,
+        status: "need assistance"
+    },
+    {
+
+        lat: 40.691417399999956,
+        lng: -122.38857969999998,
+        status: "verified"
+    },
+    {
+
+        lat: 40.69172650000001,
+        lng: -122.39101520000003,
+        status: "verified"
+    },
+    {
+
+        lat: 40.69058769999998,
+        lng: -122.39014610000004,
+        status: "verified"
+    },
+]
 class MapScreen extends React.Component {
 
   constructor(props) {
