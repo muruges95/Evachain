@@ -1,8 +1,8 @@
 import React from 'react';
-import { WebView, Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import { WebView, Text, View, ScrollView, Image, TouchableOpacity, Platform } from "react-native";
 import InfoCarousel from "../components/InfoCarousel"
 import { Avatar } from 'react-native-elements';
-import { MapView } from "expo";
+import { MapView, Permissions, Notifications } from "expo";
 import { AsyncStorage } from "react-native"
 import { retrieveKey, updateRow } from "../api/db.js"
 import Modal from "react-native-modal";
@@ -19,6 +19,31 @@ export default class DashboardScreen extends React.Component {
     }
     componentDidMount(){
         this._retrieveData();
+
+        // For push notifcations
+        if (Platform.OS === 'android') {
+          Expo.Notifications.createChannelAndroidAsync('chat-messages', {
+            name: 'Chat messages',
+            sound: true,
+          });
+        } else {
+          const { badgeNumber } = Expo.Notifications.getBadgeNumberAsync();
+          this.setState({badge : badgeNumber});
+        }
+        this._registerForPushNotifications();
+    }
+    async _registerForPushNotifications() {
+        const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+
+        if (status !== 'granted') {
+          const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          if (status !== 'granted') {
+            return;
+          }
+        }
+
+        const token = await Notifications.getExpoPushTokenAsync();
+        console.log('TOKEN: ' + token);
     }
     getColor = () => {
         return this.state.fireState
