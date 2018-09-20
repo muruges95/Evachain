@@ -254,6 +254,9 @@ const volunteerPoints = [
   }
 ]
 
+
+// 40.68977537472434%2C-122.39113825938927
+// 40.689977672745655%2C-122.3928180908365
 const firemanRoutes = [
     {
         origin: {
@@ -261,10 +264,54 @@ const firemanRoutes = [
             longitude: -122.3862871
         },
         destination: {
-            latitude: 40.690051099999984,
-            longitude: -122.39385930000003
+            latitude: 40.68906015207363,
+            longitude: -122.38659401687931
         },
-        strokeColor: "black",
+        strokeColor: BLUE,
+    },
+    {
+      origin: {
+          latitude: 40.68906015207363,
+          longitude: -122.38659401687931
+      },
+      destination: {
+          latitude: 40.68807234007045,
+          longitude: -122.38688104983606
+      },
+      strokeColor: "orange",
+    },
+    {
+      origin: {
+          latitude: 40.68807234007045,
+          longitude: -122.38688104983606
+      },
+      destination: {
+          latitude: 40.68977537472434,
+          longitude: -122.39113825938927
+      },
+      strokeColor: BLUE,
+    },
+    {
+      origin: {
+          latitude: 40.68977537472434,
+          longitude: -122.39113825938927
+      },
+      destination: {
+          latitude: 40.689977672745655,
+          longitude: -122.3928180908365
+      },
+      strokeColor: "red",
+    },
+    {
+      origin: {
+          latitude: 40.689977672745655,
+          longitude: -122.3928180908365
+      },
+      destination: {
+          latitude: 40.690051099999984,
+          longitude: -122.39385930000003
+      },
+      strokeColor: BLUE,
     },
     {
         origin: {
@@ -276,7 +323,7 @@ const firemanRoutes = [
             longitude: -122.3919378
         },
 
-        strokeColor: "black",
+        strokeColor: BLUE,
     },
     {
         origin: {
@@ -288,7 +335,7 @@ const firemanRoutes = [
             longitude: -122.38785080000002
         },
 
-        strokeColor: "black",
+        strokeColor: BLUE,
     },
     {
         origin: {
@@ -300,7 +347,7 @@ const firemanRoutes = [
             longitude: -122.39013090000003
         },
 
-        strokeColor: "black",
+        strokeColor: BLUE,
     }
 ]
 
