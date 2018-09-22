@@ -86,11 +86,11 @@ The left column of the second row contains the Attribute chart with 6 Attributes
 The middle of the row shows contains article recommendations based on the traits of the student. This feature ultilises the Attribute Hexagram to see which areas the student is lacking in, populating the list with appropriate articles based on the attributes. For example, if a student is lacking Dedication and Hardwork attributes, articles related to improving productivity would appear on the list.
 
 ### 4) Push Notifications
-<p align="left"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:80px% height:200px"/>
+<p align="left"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:80px; height:200px;"/>
 <br/>SMS notification</p>
 
 
-<p align="left"><img src="https://i.imgur.com/krTL2Ih.jpg" style="width:80px% height:200px"/>
+<p align="left"><img src="https://i.imgur.com/krTL2Ih.jpg" style="width:80px; height:200px;"/>
 <br/>Push notification</p>
 
 
