@@ -8,12 +8,12 @@ Ensure that you have `node` and `npm` installed, to compile and run our React Na
 brew update
 brew install node
 ```
-###Windows
+### Windows
 
 You can download the latest NodeJS from [here](https://nodejs.org/en/)
 ## Installation
 
-###Install from source
+### Install from source
 
 Clone our repo
 ```
@@ -38,18 +38,18 @@ brew install watchman
 
 ```
 
-###Install from platform installer (.apk or .ipa)
-####.apk
+### Install from platform installer (.apk or .ipa)
+#### .apk
 1. Download [Evachain.apk](Evachain.apk) onto your phone.
 2. Enable installation from 'unknown sources'
 3. Install the apk and run!
 
 
-####.ipa
+#### .ipa
 
 Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone
 
-###Quick Start
+### Quick Start
 For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
 
 ## Overview
