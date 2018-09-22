@@ -76,21 +76,30 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 ### 1) Onboarding
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
-![alt text](docs/dashboard1.jpg )
-![alt text](docs/dashboard2.jpg )
+<p align="center">
+<img src="./docs/dashboard1.jpg" width="200"/>
+<img src="./docs/dashboard2.jpg" width="200"/>
+</p>
+
 * Splash screen
 * First and Last Name
 
-![alt text](docs/dashboard3.jpg )
-![alt text](docs/dashboard4.jpg )
+<p align="center">
+<img src="./docs/dashboard3.jpg" width="200"/>
+<img src="./docs/dashboard4.jpg" width="200"/>
+</p>
+
 * House address and mobile phone number
 * Important household details
     * Do you have pets?
     * Number of family members
     * Do you have mobility issues? (Require assistance in evacuation
 
-![alt text](docs/dashboard5.jpg )
-![alt text](docs/dashboard6.jpg )
+<p align="center">
+<img src="./docs/dashboard5.jpg" width="200"/>
+<img src="./docs/dashboard6.jpg" width="200"/>
+</p>
+
 * Signup screen to be a volunteer
 * Adding a profile picture for easier identification
 
@@ -111,8 +120,9 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 * A Twitter feed of CALFIRE account. The tweets are live and real-time, providing civilians with information of fires.
 * Important evacuation information, articles about how-to evacuate, what-to-do in situation of emergencies etc. This will also be in real-time, pulling information from our Cloudant database.
 
-![alt text](docs/Dashboard.jpg "Dashboard")
-
+<p align="center">
+<img src="./docs/dashboard.jpg" width="200"/>
+</p>
 
 ### 3) Map View
 #### Fireman view
@@ -139,9 +149,6 @@ For regular civilians who have signed up as non-volunteers, just a route showing
 <img src="./docs/pushnotif1.jpg" width="200"/>
 </p>
 
-![alt text](docs/pushnotif2.jpg "SMS Notification")
-![alt text](docs/pushnotif1.jpg "Push Notification")
-
 An example of an SMS notification & a Push notification
 
 Our application sends push notifications to users in the case of an emergency to warn them and also allow them to 
@@ -149,7 +156,9 @@ verify their safety at the same time. For residents living near the disaster zon
 
 Tapping on the notification will redirect them to the app, and show them this modal popup in the app on the dashboard
 
-![Modal](docs/modal.jpg "Modal")
+<p align="center">
+<img src="./docs/modal.jpg" width="200"/>
+</p>
 
 ## Future Plans
  - User Authentication
