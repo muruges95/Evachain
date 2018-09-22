@@ -73,7 +73,7 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 
 ## Features
 
-#### 1) Onboarding
+### 1) Onboarding
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
 ![alt text](docs/dashboard1.jpg )
@@ -103,7 +103,7 @@ as our basic implementation is such that their function is the same.
 
 Onboarding is an important process that helps to streamline the app flow.
 
-#### 2) Dashboard
+### 2) Dashboard
 
 Dashboard is the first screen that civilians see after entering the app. It displays the following important information:
 * The emergency status: Safe or Fire nearby
@@ -114,37 +114,35 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 ![alt text](docs/Dashboard.jpg "Dashboard")
 
 
-#### 3) Map View
-##### Fireman view
+### 3) Map View
+#### Fireman view
 
 <p align="center"><img src="./assets/fireman_view.jpg" width="200"/></p>
 During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
 
 <p align="center"><img src="./assets/volunteer_view.jpg" width="200"/></p>
-##### Volunteer view
+
+#### Volunteer view
 Volunteers will also be shown a similar view with nearby houses and their statuses, and for them a route will be planned based on who they can help along the way to the shelter and shown to them in this page.
 
 <p align="center"><img src="./assets/civilian_view.jpg" width="200"/></p>
-##### Civilian view
+
+#### Civilian view
 For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
 
 ### 4) Push Notifications
 
-<p align="left"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:80px; height:200px;"/>
-<br/>SMS notification</p>
+![alt text](docs/pushnotif2.jpg "SMS Notification")
+![alt text](docs/pushnotif1.jpg "Push Notification")
 
+An example of an SMS notification & a Push notification
 
-<p align="left"><img src="https://i.imgur.com/krTL2Ih.jpg" style="width:80px; height:200px;"/>
-<br/>Push notification</p>
+Our application sends push notifications to users in the case of an emergency to warn them and also allow them to 
+verify their safety at the same time. For residents living near the disaster zone who do not have our application installed, we will send them a text message to notify them as well. Text messages will be done through the Twilio API.
 
+Tapping on the notification will redirect them to the app, and show them this modal popup in the app on the dashboard
 
-Our application sends push notifications to users in the case of an emergency to warn them and also allow them to verify their safety at the same time. For residents living near the disaster zone who do not have our application installed, we will send them a text message to notify them as well. Text messages will be done through the Twilio API.
-
-
-
-## Changelog
- - Weak Student Monitoring Dashboard
- - Exception Handling for Invalid/Missing Data
+![Modal](docs/modal.jpg "Modal")
 
 ## Future Plans
  - User Authentication
