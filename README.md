@@ -77,16 +77,16 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
 <p align="center">
-<img src="./docs/dashboard1.jpg" width="200"/>
-<img src="./docs/dashboard2.jpg" width="200"/>
+<img src="./docs/dashboard1.jpg" width="300"/>
+<img src="./docs/dashboard2.jpg" width="300"/>
 </p>
 
 * Splash screen
 * First and Last Name
 
 <p align="center">
-<img src="./docs/dashboard3.jpg" width="200"/>
-<img src="./docs/dashboard4.jpg" width="200"/>
+<img src="./docs/dashboard3.jpg" width="300"/>
+<img src="./docs/dashboard4.jpg" width="300"/>
 </p>
 
 * House address and mobile phone number
@@ -96,8 +96,8 @@ Onboarding is the process of signing civilians up for our application. The follo
     * Do you have mobility issues? (Require assistance in evacuation
 
 <p align="center">
-<img src="./docs/dashboard5.jpg" width="200"/>
-<img src="./docs/dashboard6.jpg" width="200"/>
+<img src="./docs/dashboard5.jpg" width="300"/>
+<img src="./docs/dashboard6.jpg" width="300"/>
 </p>
 
 * Signup screen to be a volunteer
@@ -121,23 +121,23 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 * Important evacuation information, articles about how-to evacuate, what-to-do in situation of emergencies etc. This will also be in real-time, pulling information from our Cloudant database.
 
 <p align="center">
-<img src="./docs/dashboard.jpg" width="200"/>
+<img src="./docs/dashboard.jpg" width="300"/>
 </p>
 
 ### 3) Map View
 #### Fireman view
 
-<p align="center"><img src="./docs/fireman_view.jpg" width="200"/></p>
+<p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
 
 ##### Fireman view
 During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
 
-<p align="center"><img src="./docs/volunteer_view.jpg" width="200"/></p>
+<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
 
 #### Volunteer view
 Volunteers will also be shown a similar view with nearby houses and their statuses, and for them a route will be planned based on who they can help along the way to the shelter and shown to them in this page.
 
-<p align="center"><img src="./docs/civilian_view.jpg" width="200"/></p>
+<p align="center"><img src="./docs/civilian_view.jpg" width="300"/></p>
 
 #### Civilian view
 For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
@@ -145,8 +145,8 @@ For regular civilians who have signed up as non-volunteers, just a route showing
 ### 4) Push Notifications
 
 <p align="center">
-<img src="./docs/pushnotif2.jpg" width="200"/>
-<img src="./docs/pushnotif1.jpg" width="200"/>
+<img src="./docs/pushnotif2.jpg" width="300"/>
+<img src="./docs/pushnotif1.jpg" width="300"/>
 </p>
 
 An example of an SMS notification & a Push notification
@@ -157,7 +157,7 @@ verify their safety at the same time. For residents living near the disaster zon
 Tapping on the notification will redirect them to the app, and show them this modal popup in the app on the dashboard
 
 <p align="center">
-<img src="./docs/modal.jpg" width="200"/>
+<img src="./docs/modal.jpg" width="300"/>
 </p>
 
 ## Future Plans
