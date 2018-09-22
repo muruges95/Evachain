@@ -13,7 +13,7 @@ export const setHomes = (homes) => {
 };
 
 export const getHomes = (dispatch) => {
-    const dbName = 'testdb2';
+    const dbName = 'civilians';
     const url = `${ json.URL }/${ dbName }/_all_docs?include_docs=true`;
     const config = {
         method: 'get',

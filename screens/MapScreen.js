@@ -25,35 +25,6 @@ const getAppropriateIcon = (point) => {
   }
 }
 
-const FiremanHomeIcons = props => {
-	if (props.status === "verified") {
-		var image = house1;
-	} else if (props.status === "need assistance") {
-		var image = house2;
-	} else {
-		var image = house3;
-	}
-	console.log('homeicon props',this.props);
-	return (
-		<MapView.Marker
-			coordinate={{
-			latitude: props.lat,
-			longitude: props.lng,
-			latitudeDelta: 0.0922,
-			longitudeDelta: 0.0421
-			}}
-			image={image}
-			style={{width:20, height:20}}
-		>
-			<MapView.Callout style={{width:150}} onPress={() => {this.props.navigation.navigate('Dashboard')}}>
-                <View>
-                    <Text style={{ fontSize: 16, marginBottom: 5 }}>Hello Bro</Text>
-                </View>
-			</MapView.Callout>
-		</MapView.Marker>   
-	);
-};
-
 const MapIcons = props => {
   return props.points.map((point, i) => {
     if (point.status !== undefined) {
@@ -68,7 +39,6 @@ const MapIcons = props => {
             longitudeDelta: 0.0421
           }}
           image={image}
-          style={{width:5, height:5}}
           key={point.lng}
           />
       );
@@ -82,8 +52,6 @@ const MapIcons = props => {
             longitudeDelta: 0.0421
           }}
           key={point.lng}
-          // image={image}
-          // style={{width:20, height:20}}
           />
       );
     }
@@ -165,42 +133,6 @@ const civilianPoints = [
   },
 ]
 
-// const firemanRoutes = [
-//   {
-//     origin: {
-//       latitude: 37.451264,
-//       longitude: -122.187760
-//     },
-//     destination: {
-//       latitude: 37.439990,
-//       longitude: -122.158129
-//     },
-//     strokeColor: "red"
-//   },
-//   {
-//     origin: {
-//       latitude: 37.451264,
-//       longitude: -122.187760
-//     },
-//     destination: {
-//       latitude: 37.488306,
-//       longitude: -122.217657
-//     },
-//     strokeColor: "green"
-//   },  
-//   {
-//     origin: {
-//       latitude: 37.451264,
-//       longitude: -122.187760
-//     },
-//     destination: {
-//       latitude: 37.452911,
-//       longitude: -122.183045
-//     },
-//     strokeColor: "pink"
-//   }
-// ]
-
 const volunteerRoutes = [
   {
     origin: {
@@ -254,9 +186,6 @@ const volunteerPoints = [
   }
 ]
 
-
-// 40.68977537472434%2C-122.39113825938927
-// 40.689977672745655%2C-122.3928180908365
 const firemanRoutes = [
     {
         origin: {
@@ -412,10 +341,10 @@ class MapScreen extends React.Component {
     this.state = {
         latitude: 37.3318456,
         longitude: -122.0296002,
-        latitudeDelta: civilianFocalPtLatDelta,
-        longitudeDelta: civilianFocalPtLngDelta,
+        latitudeDelta: volunteerFocalPtLatDelta,
+        longitudeDelta: volunteerFocalPtLngDelta,
         logo: house1,
-        view: "fireman",
+        view: "volunteer",
         homes: [],
         shelters: []
     };  
@@ -434,10 +363,10 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              // latitude: volunteerFocalPtlat,
-              // longitude: volunteerFocalPtlng,
-              latitude: civilianFocalPtLat,
-              longitude: civilianFocalPtLng,
+              latitude: volunteerFocalPtlat,
+              longitude: volunteerFocalPtlng,
+              // latitude: civilianFocalPtLat,
+              // longitude: civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               // latitude: firemanFocalPtlat,
@@ -464,19 +393,21 @@ class MapScreen extends React.Component {
 				latitudeDelta: this.state.latitudeDelta,
 				longitudeDelta: this.state.longitudeDelta
 			}
+      let homePoints = firemanPoints;
+      if (this.props.homes !== undefined) {
+        console.log('homes', this.props.homes);
+        homePoints = this.props.homes.map((person, i) => {
+          let home = person.doc;
+          return {
+            lat: home.lat,
+            lng: home.lng,
+            status: home.status,
+          }
+        });
+      }
 
 			if (this.state.view === "fireman") {
-				// if (this.props.homes === undefined || this.props.homes === []) {
-				// 	var homesIcons = null;
-				// } else {
-				//     console.log('homes', this.props.homes);
-				// 	var homesIcons = this.props.homes.map((person, i) => {
-				// 		let home = person.doc;
-				// 		return (
-				// 			<FiremanHomeIcons lat={home.lat} lng={home.lng} key={home.lat} status={home.status} />
-				// 		);
-				// 	})
-				// }
+				
 				return (
 					<View style={styles.container}>
 						<MapView
@@ -485,7 +416,7 @@ class MapScreen extends React.Component {
 							initialRegion={initialRegion}
 						>
               {/* {homesIcons} */}
-              <MapIcons points={firemanPoints}/>
+              <MapIcons points={homePoints}/>
               <RouteRenderer routes={firemanRoutes} />
 						</MapView>
 						<Locater onPress={this._getLocationAsync}/>
@@ -499,7 +430,7 @@ class MapScreen extends React.Component {
 								ref = {component => this._map = component}
 								initialRegion={initialRegion}
 								>
-                <MapIcons points={volunteerPoints}/>
+                <MapIcons points={homePoints}/>
 								<RouteRenderer routes={volunteerRoutes} />
 							</MapView>
               <Locater onPress={this._getLocationAsync}/>
@@ -513,7 +444,7 @@ class MapScreen extends React.Component {
 						ref = {component => this._map = component}
 						initialRegion={initialRegion}
 					>
-          <MapIcons points={civilianPoints}/>
+          <MapIcons points={homePoints}/>
           <RouteRenderer routes={civilianRoutes} />
 					</MapView>
 					<Locater onPress={this._getLocationAsync}/>

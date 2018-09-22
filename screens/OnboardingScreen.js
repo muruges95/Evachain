@@ -375,7 +375,7 @@ export class OnboardingImageScreen extends React.Component {
                 let userInfo = { ...this.state, lat: lat, lng: lng};
                 // console.log(userInfo);
                 this._storeData(userInfo);
-                postData(userInfo, 'testdb2');
+                postData(userInfo, 'civilians');
             },
             error => {
                 console.error(error);
