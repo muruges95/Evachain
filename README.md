@@ -40,9 +40,8 @@ Edulytics is a Web Application targeted at 2 main stakeholders, Students and Edu
 Edulytics is built on React with Redux, retrieving data from Firebase which is dynamically updated using a Jupyter Notebook. Within the notebook, weekly downloads are made from Amazon's S3 Buckets together with real-time API calls for more time-sensitive data.
 
 ## Features
-### Student Features
 
-#### 1) Onboarding
+### 1) Onboarding
 <p align="center"><img src="https://i.imgur.com/z2aOtVG.png" style="width:100%" /></p>
 - Explain how people use it
 - file directory in src
@@ -81,15 +80,19 @@ The left column of the second row contains the Attribute chart with 6 Attributes
 	</table>
 </div>
 
-#### 3) Map View
+### 3) Map View
 <p align="center"><img src="https://i.imgur.com/LRuDmwm.png" style="width:70%"/></p>
 
 The middle of the row shows contains article recommendations based on the traits of the student. This feature ultilises the Attribute Hexagram to see which areas the student is lacking in, populating the list with appropriate articles based on the attributes. For example, if a student is lacking Dedication and Hardwork attributes, articles related to improving productivity would appear on the list.
 
-#### 4) Push Notifications
-<p align="center"><img src="https://i.imgur.com/OPq0yLs.png" style="width:50%"/></p>
+### 4) Push Notifications
+<p align="center"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:50%"/></p>
+SMS notification
 
-To the right of the row contains Elo Distribution Chart, which enables students to see their standings among their peers. Students will also be able to see the distribution and frequency of other students at each Elo level. In doing so, Edulytics aim to aid students in setting smart goals accordingly.
+<p align="center"><img src="https://i.imgur.com/krTL2Ih.jpg" style="width:50%"/></p>
+Push notification
+
+Our application sends push notifications to users in the case of an emergency to warn them and also allow them to verify their safety at the same time. For residents living near the disaster zone who do not have our application installed, we will send them a text message to notify them as well. Text messages will be done through the Twilio API.
 
 
 
