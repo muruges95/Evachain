@@ -1,24 +1,56 @@
 # Evachain
 
 ## Prerequisites
-Ensure that you have `node` and `npm` installed.
+Ensure that you have `node` and `npm` installed, to compile and run our React Native project.
 
+### Mac
+```
+brew update
+brew install node
+```
+###Windows
+
+You can download the latest NodeJS from [here](https://nodejs.org/en/)
 ## Installation
+
+###Install from source
+
+Clone our repo
+```
+git clone https://github.com/muruges95/Evachain.git
+```
+Install expo
+```
+npm install expo-cli --global
+
+```
+
+To run our project
 ```
 npm install -g exp
 npm install
 exp start
 ```
-## For Mac 
+#### For Mac 
 
 ```
 brew install watchman
 
 ```
 
-<p align="center">
-<a href="https://youtu.be/6HrcKqWbwoY">Project Video</a> | 
-</p>
+###Install from platform installer (.apk or .ipa)
+####.apk
+1. Download [Evachain.apk](Evachain.apk) onto your phone.
+2. Enable installation from 'unknown sources'
+3. Install the apk and run!
+
+
+####.ipa
+
+Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone
+
+###Quick Start
+For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
 
 ## Overview
 
@@ -45,17 +77,18 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
 ![alt text](docs/dashboard1.jpg )
-* First and Last Name
 ![alt text](docs/dashboard1.jpg )
+* First and Last Name
 * House address and mobile phone number
 
+![alt text](docs/dashboard1.jpg )
 ![alt text](docs/dashboard1.jpg )
 * Important household details
     * Do you have pets?
     * Number of family members
     * Do you have mobility issues? (Require assistance in evacuation
-![alt text](docs/dashboard1.jpg )
 * Signup screen to be a volunteer
+
 ![alt text](docs/dashboard1.jpg )
 * Adding a profile picture for easier identification
 
