@@ -70,7 +70,7 @@ export default class DashboardScreen extends React.Component {
             "lat": this.state.lat,
             "lng": this.state.lng
         }
-        retrieveKey(queryBody, "testdb2")
+        retrieveKey(queryBody, "civilians")
             .then(data=>{
                 this.setState({
                     _id: data.docs[0]._id,
@@ -82,7 +82,7 @@ export default class DashboardScreen extends React.Component {
                 }
             })
             .then(jsonData=>{
-                updateRow(this.state._id, jsonData, "testdb2");
+                updateRow(this.state._id, jsonData, "civilians");
             })
             .catch(e=>{
                 console.log("Error Patching:", e);
