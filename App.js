@@ -40,7 +40,14 @@ export const Onboarding = createStackNavigator(
             headerStyle: {
                 borderBottomWidth: 0,
                 shadowColor: 'transparent',
-                marginLeft: 10
+                marginLeft: 10,
+                elevation: 0,
+                shadowOpacity: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                    height: 0,
+                    width:0
+                },
             },
             headerTintColor: '#919191',
         }

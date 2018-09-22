@@ -77,19 +77,21 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
 ![alt text](docs/dashboard1.jpg )
-![alt text](docs/dashboard1.jpg )
+![alt text](docs/dashboard2.jpg )
+* Splash screen
 * First and Last Name
-* House address and mobile phone number
 
-![alt text](docs/dashboard1.jpg )
-![alt text](docs/dashboard1.jpg )
+![alt text](docs/dashboard3.jpg )
+![alt text](docs/dashboard4.jpg )
+* House address and mobile phone number
 * Important household details
     * Do you have pets?
     * Number of family members
     * Do you have mobility issues? (Require assistance in evacuation
-* Signup screen to be a volunteer
 
-![alt text](docs/dashboard1.jpg )
+![alt text](docs/dashboard5.jpg )
+![alt text](docs/dashboard6.jpg )
+* Signup screen to be a volunteer
 * Adding a profile picture for easier identification
 
 The house addresses will be used to locate the houses in our Google Mapview, 
@@ -114,6 +116,7 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 
 #### 3) Map View
 ##### Fireman view
+
 <p align="center"><img src="./assets/fireman_view.jpg" width="200"/></p>
 During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
 
@@ -126,6 +129,7 @@ Volunteers will also be shown a similar view with nearby houses and their status
 For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
 
 ### 4) Push Notifications
+
 <p align="left"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:80px; height:200px;"/>
 <br/>SMS notification</p>
 
