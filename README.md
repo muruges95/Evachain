@@ -43,9 +43,19 @@ Edulytics is built on React with Redux, retrieving data from Firebase which is d
 ### Student Features
 
 #### 1) Onboarding
-<p align="center"><img src="https://i.imgur.com/z2aOtVG.png" style="width:100%" /></p>
-- Explain how people use it
-- file directory in src
+Onboarding is the process of signing civilians up for our application. The following data is collected:
+
+* First and Last Name
+* House address and mobile phone number
+* Important household details
+    * Do you have pets?
+    * Number of family members
+    * Do you have mobility issues? (Require assistance in evacuation
+* Signup screen to be a volunteer
+* Adding a profile picture
+
+<Screens>
+The house addresses will be used to locate the houses in our Google Mapview, in 
 
 #### 2) Dashboard
 <p align="center"><img src = "https://i.imgur.com/gt5mrji.png" style="width:50%"/></p>
