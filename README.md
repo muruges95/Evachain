@@ -1,24 +1,56 @@
 # Evachain
 
 ## Prerequisites
-Ensure that you have `node` and `npm` installed.
+Ensure that you have `node` and `npm` installed, to compile and run our React Native project.
 
+### Mac
+```
+brew update
+brew install node
+```
+###Windows
+
+You can download the latest NodeJS from [here](https://nodejs.org/en/)
 ## Installation
+
+###Install from source
+
+Clone our repo
+```
+git clone https://github.com/muruges95/Evachain.git
+```
+Install expo
+```
+npm install expo-cli --global
+
+```
+
+To run our project
 ```
 npm install -g exp
 npm install
 exp start
 ```
-## For Mac 
+#### For Mac 
 
 ```
 brew install watchman
 
 ```
 
-<p align="center">
-<a href="https://youtu.be/6HrcKqWbwoY">Project Video</a> | 
-</p>
+###Install from platform installer (.apk or .ipa)
+####.apk
+1. Download [Evachain.apk](Evachain.apk) onto your phone.
+2. Enable installation from 'unknown sources'
+3. Install the apk and run!
+
+
+####.ipa
+
+Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone
+
+###Quick Start
+For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
 
 ## Overview
 
@@ -41,22 +73,25 @@ Evachain is built on react-native, retrieving data from IBM Cloudant. It also ma
 
 ## Features
 
-#### 1) Onboarding
+### 1) Onboarding
 Onboarding is the process of signing civilians up for our application. The following data is collected:
 
 ![alt text](docs/dashboard1.jpg )
+![alt text](docs/dashboard2.jpg )
+* Splash screen
 * First and Last Name
-![alt text](docs/dashboard1.jpg )
-* House address and mobile phone number
 
-![alt text](docs/dashboard1.jpg )
+![alt text](docs/dashboard3.jpg )
+![alt text](docs/dashboard4.jpg )
+* House address and mobile phone number
 * Important household details
     * Do you have pets?
     * Number of family members
     * Do you have mobility issues? (Require assistance in evacuation
-![alt text](docs/dashboard1.jpg )
+
+![alt text](docs/dashboard5.jpg )
+![alt text](docs/dashboard6.jpg )
 * Signup screen to be a volunteer
-![alt text](docs/dashboard1.jpg )
 * Adding a profile picture for easier identification
 
 The house addresses will be used to locate the houses in our Google Mapview, 
@@ -68,7 +103,7 @@ as our basic implementation is such that their function is the same.
 
 Onboarding is an important process that helps to streamline the app flow.
 
-#### 2) Dashboard
+### 2) Dashboard
 
 Dashboard is the first screen that civilians see after entering the app. It displays the following important information:
 * The emergency status: Safe or Fire nearby
@@ -79,7 +114,9 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 ![alt text](docs/Dashboard.jpg "Dashboard")
 
 
-#### 3) Map View
+### 3) Map View
+#### Fireman view
+
 <p align="center"><img src="./assets/fireman_view.jpg" width="200"/></p>
 
 ##### Fireman view
@@ -87,30 +124,27 @@ During an emergency, for the fireman, what will be shown on this screen are the 
 
 <p align="center"><img src="./assets/volunteer_view.jpg" width="200"/></p>
 
-##### Volunteer view
+#### Volunteer view
 Volunteers will also be shown a similar view with nearby houses and their statuses, and for them a route will be planned based on who they can help along the way to the shelter and shown to them in this page.
 
 <p align="center"><img src="./assets/civilian_view.jpg" width="200"/></p>
 
-##### Civilian view
+#### Civilian view
 For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
 
 ### 4) Push Notifications
-<p align="left"><img src="https://i.imgur.com/zzMTIi8.jpg" style="width:80px; height:200px;"/>
-<br/>SMS notification</p>
 
+![alt text](docs/pushnotif2.jpg "SMS Notification")
+![alt text](docs/pushnotif1.jpg "Push Notification")
 
-<p align="left"><img src="https://i.imgur.com/krTL2Ih.jpg" style="width:80px; height:200px;"/>
-<br/>Push notification</p>
+An example of an SMS notification & a Push notification
 
+Our application sends push notifications to users in the case of an emergency to warn them and also allow them to 
+verify their safety at the same time. For residents living near the disaster zone who do not have our application installed, we will send them a text message to notify them as well. Text messages will be done through the Twilio API.
 
-Our application sends push notifications to users in the case of an emergency to warn them and also allow them to verify their safety at the same time. For residents living near the disaster zone who do not have our application installed, we will send them a text message to notify them as well. Text messages will be done through the Twilio API.
+Tapping on the notification will redirect them to the app, and show them this modal popup in the app on the dashboard
 
-
-
-## Changelog
- - Weak Student Monitoring Dashboard
- - Exception Handling for Invalid/Missing Data
+![Modal](docs/modal.jpg "Modal")
 
 ## Future Plans
  - User Authentication
