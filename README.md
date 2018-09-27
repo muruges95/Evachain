@@ -105,12 +105,10 @@ Onboarding is the process of signing civilians up for our application. The follo
 
 The house addresses will be used to locate the houses in our Google Mapview, 
 to be shown on the firemen app. The house addresses of all onboarded civlians will be used for route planning, to find the most efficient route between all houses.
-
 Civilians have the option to sign up to be volunteers, 
-indicating their interest in the onboarding process. For now, volunteers have the same screen as firemen, 
-as our basic implementation is such that their function is the same.
+indicating their interest in the onboarding process, allowing them access to address information to help civilians that require assistance in evacuation/remain unverified
 
-Onboarding is an important process that helps to streamline the app flow.
+Onboarding is an important process that helps to streamline our app flow.
 
 ### 2) Dashboard
 
@@ -159,11 +157,3 @@ Tapping on the notification will redirect them to the app, and show them this mo
 <p align="center">
 <img src="./docs/modal.jpg" width="300"/>
 </p>
-
-## Future Plans
- - User Authentication
- - Inclusion of more User Types (Cohort Administrator)
- - Predictive Analytics
- - Mobile-Friendlier Layout
- - UI Refresh
-
