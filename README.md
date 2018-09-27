@@ -119,7 +119,7 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 * Important evacuation information, articles about how-to evacuate, what-to-do in situation of emergencies etc. This will also be in real-time, pulling information from our Cloudant database.
 
 <p align="center">
-<img src="./docs/dashboard.jpg" width="300"/>
+<img src="./docs/Dashboard.jpg" width="300"/>
 </p>
 
 ### 3) Map View
