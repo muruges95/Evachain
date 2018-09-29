@@ -40,7 +40,14 @@ const MapIcons = props => {
           }}
           image={image}
           key={point.lng}
-          />
+          >
+          
+          <MapView.Callout style={{width:150}} >
+                <View>
+                    <Text style={{ fontSize: 16, marginBottom: 5 }}>{point.lng}</Text>
+                </View>
+			</MapView.Callout>  
+        </MapView.Marker>
       );
     } else {
       return (
@@ -168,23 +175,6 @@ const volunteerRoutes = [
     strokeColor: BLUE
   }
 ]
-const volunteerPoints = [
-  {
-    lat: 40.618255000000016,
-    lng: -122.43134709999998,
-    status: "myLocation"
-
-  },
-  {
-    lat: 40.6175224,
-    lng: -122.4342772,
-    status: "need assistance"
-  },
-  {
-    lat: 40.6149707,
-    lng: -122.4366157
-  }
-]
 
 const firemanRoutes = [
     {
@@ -280,55 +270,14 @@ const firemanRoutes = [
     }
 ]
 
-const firemanPoints = [
-    {
-        lat: 40.690424300000004,
-        lng: -122.3862871,
-        status: "need assistance"
-    },
-    {
-        lat: 40.690051099999984,
-        lng: -122.39385930000003,
-        status: "need assistance"
-    },
-    {
-        lat: 40.69071070000001,
-        lng: -122.38785080000002,
-        status: "need assistance"
-    },
-    {
-        lat: 40.69236109999998,
-        lng: -122.39013090000003,
-        status: "need assistance"
-    },
-    {
-
-        lat: 40.691417399999956,
-        lng: -122.38857969999998,
-        status: "verified"
-    },
-    {
-
-        lat: 40.69172650000001,
-        lng: -122.39101520000003,
-        status: "verified"
-    },
-    {
-
-        lat: 40.69058769999998,
-        lng: -122.39014610000004,
-        status: "verified"
-    },
-]
-
 const civilianFocalPtLat = 40.58427959424427;
 const civilianFocalPtLng = -122.427;
 const civilianFocalPtLatDelta = 0.01;
 const civilianFocalPtLngDelta = 0.012;
 const volunteerFocalPtlat = 40.6167;
 const volunteerFocalPtlng = -122.4338;
-const volunteerFocalPtLatDelta = 0.002;
-const volunteerFocalPtLngDelta = 0.007;
+const volunteerFocalPtLatDelta = 0.0015;
+const volunteerFocalPtLngDelta = 0.006;
 const firemanFocalPtlat = 40.690424300000004;
 const firemanFocalPtlng = -122.3893871;
 const firemanFocalPtLatDelta = 0.003;
@@ -339,8 +288,8 @@ class MapScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        latitude: 37.3318456,
-        longitude: -122.0296002,
+        latitude: 37.4883923,
+        longitude: -122.2190339,
         latitudeDelta: volunteerFocalPtLatDelta,
         longitudeDelta: volunteerFocalPtLngDelta,
         logo: house1,
@@ -378,12 +327,12 @@ class MapScreen extends React.Component {
     }
     componentDidMount() {
 			
-        this._getLocationAsync();
+        // this._getLocationAsync();
         // this._getCoords();
-        // setInterval(() => {
-        //   this.getDB()
-				// },1000)
-				this.props.getHomes();
+        setInterval(() => {
+          this.props.getHomes()
+				},1000)
+				// this.props.getHomes();
     }
 
     render() {
@@ -393,7 +342,7 @@ class MapScreen extends React.Component {
 				latitudeDelta: this.state.latitudeDelta,
 				longitudeDelta: this.state.longitudeDelta
 			}
-      let homePoints = firemanPoints;
+      let homePoints = [];
       if (this.props.homes !== undefined) {
         console.log('homes', this.props.homes);
         homePoints = this.props.homes.map((person, i) => {
