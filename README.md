@@ -40,7 +40,8 @@ brew install watchman
 
 ### Install from platform installer (.apk or .ipa)
 #### .apk
-1. Download [Evachain.apk](Evachain.apk) onto your phone.
+1. Download Fireman View[Evachain.apk](https://github.com/muruges95/Evachain/releases/download/v1.0/Evachain-1.0-Fireman.apk) onto your phone.
+1.1. Or download Volunteer View[Evachain.apk](https://github.com/muruges95/Evachain/releases/download/v1.0.1/Evachain-1.0-Volunteer.apk) onto your phone.
 2. Enable installation from 'unknown sources'
 3. Install the apk and run!
 
