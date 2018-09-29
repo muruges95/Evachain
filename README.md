@@ -47,7 +47,7 @@ brew install watchman
 
 #### .ipa
 
-Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone
+Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone. For now, as we do not have developer accounts, please use the expo method of running the app on your iPhone
 
 ### Quick Start
 For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
@@ -121,6 +121,10 @@ Dashboard is the first screen that civilians see after entering the app. It disp
 <p align="center">
 <img src="./docs/Dashboard.jpg" width="300"/>
 </p>
+
+Evachain listens to a RESTful API database for status of fire(safe or emergency). When the status changes on the 
+database, the app will change the fire status. Upon change of status, a push notification will be sent, where users can tap on. In the app on the dashboard, a modal pops up and asks 
+civilians for their fire status.
 
 ### 3) Map View
 #### Fireman view
