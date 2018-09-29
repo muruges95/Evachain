@@ -290,8 +290,8 @@ class MapScreen extends React.Component {
     this.state = {
         latitude: 37.4883923,
         longitude: -122.2190339,
-        latitudeDelta: firemanFocalPtLatDelta,
-        longitudeDelta: firemanFocalPtLngDelta,
+        latitudeDelta: volunteerFocalPtLatDelta,
+        longitudeDelta: volunteerFocalPtLngDelta,
         logo: house1,
         view: "fireman",
         homes: [],
@@ -312,16 +312,16 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              latitude: firemanFocalPtlat,
-              longitude: firemanFocalPtlng,
+              latitude: volunteerFocalPtlat,
+              longitude: volunteerFocalPtlng,
               // latitude: civilianFocalPtLat,
               // longitude: civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               // latitude: firemanFocalPtlat,
               // longitude: firemanFocalPtlng,
-              latitudeDelta: firemanFocalPtLatDelta,
-              longitudeDelta: firemanFocalPtLngDelta
+              latitudeDelta: volunteerFocalPtLatDelta,
+              longitudeDelta: volunteerFocalPtLngDelta
             }, 1300)
         }
     }
