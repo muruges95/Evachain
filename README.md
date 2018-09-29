@@ -49,8 +49,8 @@ brew install watchman
 
 Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone. For now, as we do not have developer accounts, please use the expo method of running the app on your iPhone
 
-### Quick Start
-For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
+### Quick overview
+Check out [our demo video](https://youtu.be/6HrcKqWbwoY) for a quick overview. 
 
 ## Overview
 
@@ -65,11 +65,13 @@ For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
 
 ## Description
 
-Evachain is an mobile application that facilitates the evacuation process in emergencies.
+Evachain is a dual-platform mobile application that facilitates the evacuation process in emergencies. The two platforms are meant to be used by civilians and emergency personnel respectively. Data will be shared between both parties to ensure real-time updates. For the sake of the demo, we will be using fire emergencies as the example use case. Evachain can be configured to use for other emergencies too.
 
 ## Technology Stack
 
 Evachain is built on react-native, retrieving data from IBM Cloudant. It also makes use of external API in the application such as Google Maps, Twilio and Geocode API.
+
+# Civilian's Platform
 
 ## Features
 
@@ -127,7 +129,9 @@ database, the app will change the fire status. Upon change of status, a push not
 civilians for their fire status.
 
 ### 3) Map View
-#### Fireman view
+
+
+# Fireman's platform
 
 <p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
 
@@ -161,3 +165,10 @@ Tapping on the notification will redirect them to the app, and show them this mo
 <p align="center">
 <img src="./docs/modal.jpg" width="300"/>
 </p>
+
+## Future Plans
+### Scaling on IBM Kubernetes Cloud Service
+AS our app grows, we plan to scale it up using the Kubernetes Cloud Service. We plan to containerize our application and databases, for easy scaling and automated app deployment.
+
+### Intelligent Route Planning
+As more users onboard our app, more route planning is required and efficiency is the key. We plan to implement [a smarter Google Maps TSP Solver](https://github.com/dashersw/google-maps-tsp-solver) in our app.
