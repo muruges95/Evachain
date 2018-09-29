@@ -276,8 +276,8 @@ const civilianFocalPtLatDelta = 0.01;
 const civilianFocalPtLngDelta = 0.012;
 const volunteerFocalPtlat = 40.6167;
 const volunteerFocalPtlng = -122.4338;
-const volunteerFocalPtLatDelta = 0.0015;
-const volunteerFocalPtLngDelta = 0.006;
+const volunteerFocalPtLatDelta = 0.002;
+const volunteerFocalPtLngDelta = 0.008;
 const firemanFocalPtlat = 40.690424300000004;
 const firemanFocalPtlng = -122.3893871;
 const firemanFocalPtLatDelta = 0.003;
@@ -290,10 +290,10 @@ class MapScreen extends React.Component {
     this.state = {
         latitude: 37.4883923,
         longitude: -122.2190339,
-        latitudeDelta: volunteerFocalPtLatDelta,
-        longitudeDelta: volunteerFocalPtLngDelta,
+        latitudeDelta: firemanFocalPtLatDelta,
+        longitudeDelta: firemanFocalPtLngDelta,
         logo: house1,
-        view: "volunteer",
+        view: "fireman",
         homes: [],
         shelters: []
     };  
@@ -312,16 +312,16 @@ class MapScreen extends React.Component {
             console.log(this.state.latitudeDelta);
             console.log(this.state.longitudeDelta);
             this._map.animateToCoordinate({
-              latitude: volunteerFocalPtlat,
-              longitude: volunteerFocalPtlng,
+              latitude: firemanFocalPtlat,
+              longitude: firemanFocalPtlng,
               // latitude: civilianFocalPtLat,
               // longitude: civilianFocalPtLng,
               // latitude: this.state.latitude,
               // longitude: this.state.longitude,
               // latitude: firemanFocalPtlat,
               // longitude: firemanFocalPtlng,
-              latitudeDelta: volunteerFocalPtLatDelta,
-              longitudeDelta: volunteerFocalPtLngDelta
+              latitudeDelta: firemanFocalPtLatDelta,
+              longitudeDelta: firemanFocalPtLngDelta
             }, 1300)
         }
     }
