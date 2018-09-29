@@ -47,10 +47,12 @@ brew install watchman
 
 #### .ipa
 
-Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone. For now, as we do not have developer accounts, please use the expo method of running the app on your iPhone
+For now, as we do not have Apple developer accounts, please use the ```exp start``` method of running the app on your local machine
+and iPhone
+Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone. 
 
 ### Quick overview
-Check out [our demo video](https://youtu.be/6HrcKqWbwoY) for a quick overview. 
+Check out [our demo video](https://youtu.be/I49lWyeQgaE) for a quick overview. 
 
 ## Overview
 
@@ -61,11 +63,12 @@ Check out [our demo video](https://youtu.be/6HrcKqWbwoY) for a quick overview.
 
 ## Description
 
-Evachain is a dual-platform mobile application that facilitates the evacuation process in emergencies. The two platforms are meant to be used by civilians and emergency personnel respectively. Data will be shared between both parties to ensure real-time updates. For the sake of the demo, we will be using fire emergencies as the example use case. Evachain can be configured to use for other emergencies too.
+Evachain is a dual-platform mobile application that facilitates the evacuation process in emergencies. The two platforms are meant to be used by civilians and emergency personnel respectively. Data will be shared between both parties to ensure real-time updates. For the sake of the demo, we will be using fire emergencies as the example use case. 
+Evachain can be configured for use in other emergencies too.
 
 ## Technology Stack
 
-Evachain is built on react-native, retrieving data from IBM Cloudant. It also makes use of external API in the application such as Google Maps, Twilio and Geocode API.
+Evachain is built on React-Native, retrieving data from IBM Cloudant. It also makes use of external API in the application such as Google Maps, Twilio and Geocode API.
 
 # Civilian's Platform
 
@@ -149,4 +152,4 @@ During an emergency, for the fireman, what will be shown on this screen are the 
 AS our app grows, we plan to scale it up using the Kubernetes Cloud Service. We plan to containerize our application and databases, for easy scaling and automated app deployment.
 
 ### Intelligent Route Planning
-As more users onboard our app, more route planning is required and efficiency is the key. We plan to implement [a smarter Google Maps TSP Solver](https://github.com/dashersw/google-maps-tsp-solver) in our app.
+As more users onboard our app, higher volume of route planning is required and efficiency is the key. We plan to implement [a smarter Google Maps TSP Solver](https://github.com/dashersw/google-maps-tsp-solver) in our app.
