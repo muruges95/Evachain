@@ -56,10 +56,6 @@ Check out [our demo video](https://youtu.be/6HrcKqWbwoY) for a quick overview.
 
 - [Description](#description)
 - [Features](#features)
-    - [Student Features](#student-features)
-    - [Educator Features](#educator-features)
-    - [App Features](#app-features)
-- [Changelog](#changelog)
 - [Future Plans](#future-plans)
 
 
