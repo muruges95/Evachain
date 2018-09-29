@@ -49,102 +49,29 @@ brew install watchman
 
 Follow [this guide](https://mobikul.com/install-ipa-file-iphone-device/) to install the .ipa on your iPhone. For now, as we do not have developer accounts, please use the expo method of running the app on your iPhone
 
-### Quick Start
-For a quick start, check out [our demo video](https://youtu.be/6HrcKqWbwoY)!
+### Quick overview
+Check out [our demo video](https://youtu.be/6HrcKqWbwoY) for a quick overview. 
 
 ## Overview
 
 - [Description](#description)
 - [Features](#features)
-    - [Student Features](#student-features)
-    - [Educator Features](#educator-features)
-    - [App Features](#app-features)
-- [Changelog](#changelog)
 - [Future Plans](#future-plans)
 
 
 ## Description
 
-Evachain is an mobile application that facilitates the evacuation process in emergencies.
+Evachain is a dual-platform mobile application that facilitates the evacuation process in emergencies. The two platforms are meant to be used by civilians and emergency personnel respectively. Data will be shared between both parties to ensure real-time updates. For the sake of the demo, we will be using fire emergencies as the example use case. Evachain can be configured to use for other emergencies too.
 
 ## Technology Stack
 
 Evachain is built on react-native, retrieving data from IBM Cloudant. It also makes use of external API in the application such as Google Maps, Twilio and Geocode API.
 
+# Civilian's Platform
+
 ## Features
 
-### 1) Onboarding
-Onboarding is the process of signing civilians up for our application. The following data is collected:
-
-<p align="center">
-<img src="./docs/dashboard1.jpg" width="300"/>
-<img src="./docs/dashboard2.jpg" width="300"/>
-</p>
-
-* Splash screen
-* First and Last Name
-
-<p align="center">
-<img src="./docs/dashboard3.jpg" width="300"/>
-<img src="./docs/dashboard4.jpg" width="300"/>
-</p>
-
-* House address and mobile phone number
-* Important household details
-    * Do you have pets?
-    * Number of family members
-    * Do you have mobility issues? (Require assistance in evacuation
-
-<p align="center">
-<img src="./docs/dashboard5.jpg" width="300"/>
-<img src="./docs/dashboard6.jpg" width="300"/>
-</p>
-
-* Signup screen to be a volunteer
-* Adding a profile picture for easier identification
-
-The house addresses will be used to locate the houses in our Google Mapview, 
-to be shown on the firemen app. The house addresses of all onboarded civlians will be used for route planning, to find the most efficient route between all houses.
-Civilians have the option to sign up to be volunteers, 
-indicating their interest in the onboarding process, allowing them access to address information to help civilians that require assistance in evacuation/remain unverified
-
-Onboarding is an important process that helps to streamline our app flow.
-
-### 2) Dashboard
-
-Dashboard is the first screen that civilians see after entering the app. It displays the following important information:
-* The emergency status: Safe or Fire nearby
-    * What you have verified your status as: Verified, Not Verified, Need assistance
-* A Twitter feed of CALFIRE account. The tweets are live and real-time, providing civilians with information of fires.
-* Important evacuation information, articles about how-to evacuate, what-to-do in situation of emergencies etc. This will also be in real-time, pulling information from our Cloudant database.
-
-<p align="center">
-<img src="./docs/Dashboard.jpg" width="300"/>
-</p>
-
-Evachain listens to a RESTful API database for status of fire(safe or emergency). When the status changes on the 
-database, the app will change the fire status. Upon change of status, a push notification will be sent, where users can tap on. In the app on the dashboard, a modal pops up and asks 
-civilians for their fire status.
-
-### 3) Map View
-#### Fireman view
-
-<p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
-
-##### Fireman view
-During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
-
-<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
-
-#### Volunteer view
-Volunteers will also be shown a similar view with nearby houses and their statuses, and for them a route will be planned based on who they can help along the way to the shelter and shown to them in this page.
-
-<p align="center"><img src="./docs/civilian_view.jpg" width="300"/></p>
-
-#### Civilian view
-For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
-
-### 4) Push Notifications
+### 1) Area-wide notification for all civilians in red-zone
 
 <p align="center">
 <img src="./docs/pushnotif2.jpg" width="300"/>
@@ -161,3 +88,65 @@ Tapping on the notification will redirect them to the app, and show them this mo
 <p align="center">
 <img src="./docs/modal.jpg" width="300"/>
 </p>
+
+### 2) Shelter allocation based on distance and personal information provided
+
+<p align="center"><img src="./docs/civilian_view.jpg" width="300"/></p>
+
+#### Civilian view
+For regular civilians who have signed up as non-volunteers, just a route showing the best path to the nearest shelter that can accomodate them will be shown and the users can use that to navigate to the shelter. If firemen need to block out a particular road to have better access to any particular area, they could also reflect the changes on the civilians map so that users of the app know that they have to avoid a particular road.
+
+Our user’s personal information can be provided in the pre-emergency onboarding process that collects data like the number of pets/members in a household, mobility and health issues. This data can be integrated with a shelter management dashboard to help managers anticipate resources needed - one of our potential future use cases. 
+
+### 3) Dashboard
+
+Dashboard is the first screen that civilians see after entering the app. It displays the following important information:
+* The emergency status: Safe or Fire nearby
+    * What you have verified your status as: Verified, Not Verified, Need assistance
+* A Twitter feed of CALFIRE account. The tweets are live and real-time, providing civilians with information of fires.
+* Important evacuation information, articles about how-to evacuate, what-to-do in situation of emergencies etc. This will also be in real-time, pulling information from our Cloudant database.
+
+<p align="center">
+<img src="./docs/Dashboard.jpg" width="300"/>
+</p>
+
+Evachain listens to a RESTful API database for status of fire(safe or emergency). When the status changes on the 
+database, the app will change the fire status. Upon change of status, a push notification will be sent, where users can tap on. In the app on the dashboard, a modal pops up and asks 
+civilians for their fire status.
+
+### 4) Auto-updates on Facebook
+
+<p align="center">
+<img src="./docs/facebook_mock.png" width="300"/>
+</p>
+
+Auto-updates on Facebook to notify friends and family. This allows for lesser missing cases reported and more resources allocated to rescuing victims that are actually in danger. 
+
+### 5) Decentralized evacuation aid
+
+<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
+
+Civilians can volunteer to aid in evacuation process. If a civilian in need is near the volunteer, they will be allocated to the volunteer and a push notification will be sent to both parties. Directions to the household in need will be provided so that volunteer can help them evacuate quickly. Volunteers will be able to change the safety status of the civilian in need to ensure double-checking does not occur, lightening the load on emergency personnel. 
+
+# Emergency Personnel's platform
+
+### 1) Comprehensive overview of all households
+
+Comprehensive overview of all households with easy color indicators to show safety status (<font color="green">Green</font> = verified & evacuated, <font color="red">Red</font> = In need of assistance, <font color="grey">Grey</font> = unresponsive). Data of all households to be provided in order to accommodate for everyone. 
+
+### 2) Route planning
+
+Route planning with smart algorithm that prioritizes red houses followed by grey houses. Green houses will be avoided. Ability to change status of households that are evacuated to ensure that double-checking does not occur between emergency personnel.
+
+
+<p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
+
+##### Emergency Personnel view
+During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
+
+## Future Plans
+### Scaling on IBM Kubernetes Cloud Service
+AS our app grows, we plan to scale it up using the Kubernetes Cloud Service. We plan to containerize our application and databases, for easy scaling and automated app deployment.
+
+### Intelligent Route Planning
+As more users onboard our app, more route planning is required and efficiency is the key. We plan to implement [a smarter Google Maps TSP Solver](https://github.com/dashersw/google-maps-tsp-solver) in our app.
