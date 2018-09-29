@@ -128,7 +128,10 @@ Auto-updates on Facebook to notify friends and family. This allows for lesser mi
 
 ### 5) Decentralized evacuation aid
 
-<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
+<p align="center">
+<img src="./docs/volunteer_view.jpg" width="300"/>
+<img src="./docs/send_assistance.jpg" width="300"/>
+</p>
 
 Civilians can volunteer to aid in evacuation process. If a civilian in need is near the volunteer, they will be allocated to the volunteer and a push notification will be sent to both parties. Directions to the household in need will be provided so that volunteer can help them evacuate quickly. Volunteers will be able to change the safety status of the civilian in need to ensure double-checking does not occur, lightening the load on emergency personnel. 
 
