@@ -320,8 +320,8 @@ class MapScreen extends React.Component {
               // longitude: this.state.longitude,
               // latitude: firemanFocalPtlat,
               // longitude: firemanFocalPtlng,
-              latitudeDelta: this.state.latitudeDelta,
-              longitudeDelta: this.state.longitudeDelta
+              latitudeDelta: volunteerFocalPtLatDelta,
+              longitudeDelta: volunteerFocalPtLngDelta
             }, 1300)
         }
     }

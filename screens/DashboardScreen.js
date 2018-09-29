@@ -13,7 +13,6 @@ export default class DashboardScreen extends React.Component {
         super(props);
         this.state = {
             data: null,
-            fireState: "pink",
             showModal: true,
         };
     }
@@ -45,20 +44,17 @@ export default class DashboardScreen extends React.Component {
         const token = await Notifications.getExpoPushTokenAsync();
         console.log('TOKEN: ' + token);
     }
-    getColor = () => {
-        return this.state.fireState
-    }
     _retrieveData = () => {
+        setInterval(() => {
+            this.props.getEmergencyState()
+            console.log(this.props.emergencyState);
+        }, 1000);
         AsyncStorage.getItem('state')
             .then(e=>{
                 console.log("Dashboard: Retrieved Data Success!", JSON.parse(e));
                 this.setState(JSON.parse(e))
             })
             .catch(e=>console.log("Dashboard: Retrieved Data Fail!",e))
-    }
-    change = () => {
-        console.log("Fire State changed");
-        this.setState({fireState: this.state.fireState=='pink'? 'green':'pink'});
     }
     patchDB = () => {
         var queryBody = {
@@ -104,6 +100,9 @@ export default class DashboardScreen extends React.Component {
         this.writeToState();
         this.closeModal();
     }
+    getVerifiedState = () => {
+    
+    }
     writeToState = () => {
         AsyncStorage.setItem("state", JSON.stringify(this.state))
             .then(success=>{
@@ -119,14 +118,12 @@ export default class DashboardScreen extends React.Component {
         this.patchDB();
     }
     render() {
-        const {fireState} = this.state.fireState
-
         return(
             <View style={styles.safeArea}>
                 <View style={styles.safeArea}>
                     <Modal
                         style={styles.modal}
-                        isVisible={this.state.showModal}
+                        isVisible={this.state.status === "unverified" && this.props.emergencyState && this.state.showModal}
                         onBackdropPress	={this.modalHide}
                         onBackButtonPress={this.modalHide}
                     >
@@ -152,11 +149,11 @@ export default class DashboardScreen extends React.Component {
                                     <Text style={styles.headerText}>Hello, {this.state.firstName}</Text>
                                 </View>
                                 <View
-                                    style={[{backgroundColor:'#FF5A72'}, styles.fireCard]}
+                                    style={[{backgroundColor: (this.props.emergencyState) ? '#FF5A72' : 'green'}, styles.fireCard]}
                                     onPress={this.openModal}
                                 >
                                     <Text style={styles.fireText}>
-                                    {this.state.fireState == 'pink' ?
+                                    {this.props.emergencyState ?
                                         "There is a wildfire nearby!"
                                         :
                                         "There are no incidents near you"
@@ -178,7 +175,7 @@ export default class DashboardScreen extends React.Component {
                         <View style={styles.exampleContainer}>
                             <Text style={styles.shelterText}>Curated Articles</Text>
                             <InfoCarousel
-                                emergencyState={this.state.fireState == 'pink'}
+                                emergencyState={this.props.emergencyState}
                             />
                         </View>
 

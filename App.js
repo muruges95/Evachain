@@ -22,6 +22,7 @@ import {
     OnboardingVolunteer,
     OnboardingImageScreen,
     LocationPermissionScreen  } from "./screens/OnboardingScreen";
+import DashboardScreenContainer from './containers/DashboardScreenContainer';
 
 
 export const Onboarding = createStackNavigator(
@@ -56,7 +57,7 @@ export const Onboarding = createStackNavigator(
 
 export const MainApp = createBottomTabNavigator(
     {
-        Dashboard: {screen: DashboardScreen },
+        Dashboard: {screen: DashboardScreenContainer },
         ListMap: { screen: ListMapScreen },
         Profile: { screen: ProfileScreen },
     },
