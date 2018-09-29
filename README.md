@@ -121,26 +121,18 @@ civilians for their fire status.
 ### 4) Auto-updates on Facebook
 
 <p align="center">
-<img src="./docs/facebook_mock.jpg" width="300"/>
+<img src="./docs/facebook_mock.png" width="300"/>
 </p>
 
 Auto-updates on Facebook to notify friends and family. This allows for lesser missing cases reported and more resources allocated to rescuing victims that are actually in danger. 
 
 ### 5) Decentralized evacuation aid
 
+<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
+
 Civilians can volunteer to aid in evacuation process. If a civilian in need is near the volunteer, they will be allocated to the volunteer and a push notification will be sent to both parties. Directions to the household in need will be provided so that volunteer can help them evacuate quickly. Volunteers will be able to change the safety status of the civilian in need to ensure double-checking does not occur, lightening the load on emergency personnel. 
 
 # Emergency Personnel's platform
-
-<p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
-
-##### Emergency Personnel view
-During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
-
-<p align="center"><img src="./docs/volunteer_view.jpg" width="300"/></p>
-
-#### Volunteer view
-Volunteers will also be shown a similar view with nearby houses and their statuses, and for them a route will be planned based on who they can help along the way to the shelter and shown to them in this page.
 
 ### 1) Comprehensive overview of all households
 
@@ -150,6 +142,11 @@ Comprehensive overview of all households with easy color indicators to show safe
 
 Route planning with smart algorithm that prioritizes red houses followed by grey houses. Green houses will be avoided. Ability to change status of households that are evacuated to ensure that double-checking does not occur between emergency personnel.
 
+
+<p align="center"><img src="./docs/fireman_view.jpg" width="300"/></p>
+
+##### Emergency Personnel view
+During an emergency, for the fireman, what will be shown on this screen are the locations of the houses in the area that he is in charge of and their statuses. By status we refer to whether a family has notified through the app of their safety status, and if they have done so, whether they need assistance to evacuate or they are able to evacuate on their own. Based on their status, our app will also be able to plan out the most efficient route that the fireman can take, by prioritizing the houses that require assistance and those who have yet to respond, thus best utilizing the fireman's time. This route will also be shown in this view. 
 
 ## Future Plans
 ### Scaling on IBM Kubernetes Cloud Service
